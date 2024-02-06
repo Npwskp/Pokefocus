@@ -1,6 +1,7 @@
 "use client";
 
 import InputTime from "@/components/InputTime";
+import TimeFormField from "@/components/TImeFormField";
 import TimerCount from "@/components/TimerCount";
 import { Button } from "@/components/ui/button";
 import {
@@ -20,7 +21,7 @@ import { useForm } from "react-hook-form";
 import * as z from "zod";
 import errorMap from "zod/locales/en.js";
 
-const formSchema = z.object({
+export const formSchema = z.object({
   dhour: z.number().min(0).max(24),
   dminute: z.number().min(0).max(60),
   dsecond: z.number().min(0).max(60),
@@ -67,111 +68,25 @@ const Page = () => {
           >
             <div>Work Time</div>
             <div className="flex flex-row sm:w-[40vw] w-[80vw]">
-              <FormField
-                control={form.control}
-                name="dhour"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormControl>
-                      <InputTime
-                        placeholder="Hour"
-                        register={register}
-                        name="dhour"
-                        after="h"
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="dminute"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormControl>
-                      <InputTime
-                        placeholder="Minute"
-                        register={register}
-                        name="dminute"
-                        after="m"
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="dsecond"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormControl>
-                      <InputTime
-                        placeholder="Second"
-                        register={register}
-                        name="dsecond"
-                        after="s"
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
+              {["dhour", "dminute", "dsecond"].map((name) => (
+                <TimeFormField
+                  key={name}
+                  form={form}
+                  register={register}
+                  name={name}
+                />
+              ))}
             </div>
             <div>Rest time</div>
             <div className="flex flex-row sm:w-[40vw] w-[80vw]">
-              <FormField
-                control={form.control}
-                name="rhour"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormControl>
-                      <InputTime
-                        placeholder="Hour"
-                        register={register}
-                        name="rhour"
-                        after="h"
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="rminute"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormControl>
-                      <InputTime
-                        placeholder="Minute"
-                        register={register}
-                        name="rminute"
-                        after="m"
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="rsecond"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormControl>
-                      <InputTime
-                        placeholder="Second"
-                        register={register}
-                        name="rsecond"
-                        after="s"
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
+              {["rhour", "rminute", "rsecond"].map((name) => (
+                <TimeFormField
+                  key={name}
+                  form={form}
+                  register={register}
+                  name={name}
+                />
+              ))}
             </div>
             <div className="flex w-full justify-end">
               <Button type="submit" onClick={() => setClicked(clicked + 1)}>
