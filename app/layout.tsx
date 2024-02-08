@@ -24,7 +24,7 @@ export default function RootLayout({
         enableSystem={true}
         storageKey="theme"
       >
-        <body className={cn(inter.className, "bg-white dark:bg-black")}>
+        <body className={cn(inter.className, "bg-white dark:bg-[#0f0f0f]")}>
           {children}
         </body>
       </ThemeProvider>

@@ -1,3 +1,4 @@
+import { stat } from "fs";
 import Image from "next/image";
 import React, { use, useEffect, useState } from "react";
 import { CountdownCircleTimer } from "react-countdown-circle-timer";
@@ -9,6 +10,7 @@ type TimerCountProps = {
   timeR: number;
   status: string;
   smul: number;
+  isPaused: boolean;
   setStatus: (status: string) => void;
 };
 
@@ -26,8 +28,10 @@ const TimerCount = ({
   status,
   setStatus,
   smul,
+  isPaused,
 }: TimerCountProps) => {
   const [path, setPath] = useState("/066.png");
+  const [time, setTime] = useState(0);
 
   function renderTime(status: string) {
     if (status === "" || status === "timesup") {
@@ -65,7 +69,7 @@ const TimerCount = ({
         <div className="flex flex-col gap-10">
           <CountdownCircleTimer
             key={status}
-            isPlaying={true}
+            isPlaying={!isPaused}
             duration={_time}
             colors={["#004777", "#F7B801", "#A30000"]}
             colorsTime={[_time, _time / 3, 0]}
@@ -75,6 +79,7 @@ const TimerCount = ({
             size={500 * smul}
             strokeWidth={30}
             onUpdate={(elapsedTime) => {
+              console.log(elapsedTime);
               if (status === "start") {
                 if (elapsedTime === Math.ceil(_time * 0.6) + 1) {
                   setPath("/067.png");
@@ -103,7 +108,7 @@ const TimerCount = ({
                     />
                     {formatTime(`${hour}:${minute}:${second}`)}
                     <div className="sm:text-3xl text-xl">
-                      {status == "start" ? "Work" : "Rest"} Time
+                      {status == "start" ? "Focus" : "Rest"} Time
                     </div>
                   </div>
                 </div>
