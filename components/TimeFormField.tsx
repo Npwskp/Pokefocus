@@ -2,8 +2,7 @@ import React from "react";
 import { FormControl, FormField, FormItem, FormMessage } from "./ui/form";
 import InputTime from "./InputTime";
 import { Field, UseFormRegister, UseFormReturn } from "react-hook-form";
-import * as z from "zod";
-import { formSchema } from "@/app/page";
+import { formSchema } from "@/utils/timeFormSchema";
 
 type TimeFormFieldProps = {
   form: UseFormReturn<any>;

@@ -1,9 +1,6 @@
-import { stat } from "fs";
 import Image from "next/image";
-import React, { use, useEffect, useState } from "react";
+import React, { useState } from "react";
 import { CountdownCircleTimer } from "react-countdown-circle-timer";
-import { set } from "react-hook-form";
-import { number } from "zod";
 
 type TimerCountProps = {
   timeD: number;
