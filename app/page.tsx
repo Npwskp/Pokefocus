@@ -124,13 +124,13 @@ const Page = () => {
           >
             <Button
               size={"lg"}
-              className="rounded-md text-3xl"
+              className="rounded-full text-3xl"
               onClick={() => setPause((prev) => !prev)}
             >
               {pause ? "Resume" : "Pause"}
             </Button>
             <Button
-              className="rounded-md text-3xl"
+              className="rounded-full text-3xl"
               size={"lg"}
               onClick={() => {
                 setStatus("");
