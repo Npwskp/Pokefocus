@@ -116,22 +116,22 @@ const Page = () => {
           </Form>
           <div
             className={cn(
-              "flex flow-row sm:justify-evenly justify-around items-center w-full",
+              "flex flow-row sm:justify-evenly justify-between items-center w-full",
               {
                 hidden: status === "timesup" || status === "",
               }
             )}
           >
             <Button
-              size={"lg"}
-              className="rounded-full text-3xl"
+              variant={"circle"}
+              className="font-semibold h-20"
               onClick={() => setPause((prev) => !prev)}
             >
               {pause ? "Resume" : "Pause"}
             </Button>
             <Button
-              className="rounded-full text-3xl"
-              size={"lg"}
+              variant={"circle"}
+              className="font-semibold h-20"
               onClick={() => {
                 setStatus("");
                 setPause(false);
