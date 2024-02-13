@@ -52,7 +52,7 @@ const TimerCount = ({
           >
             {({ remainingTime }) => {
               return (
-                <div className="">
+                <div className="font-bold">
                   {status == "timesup" ? "Time's Up !" : "Insert Time !"}
                 </div>
               );
