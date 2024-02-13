@@ -53,8 +53,8 @@ const Page = () => {
             <div className="items-center flex text-2xl">PokeFocus</div>
             <Image
               src="/025.png"
-              width={30}
-              height={30}
+              width={50}
+              height={50}
               alt="pika"
               className="object-contain"
             />
