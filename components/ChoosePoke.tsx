@@ -26,7 +26,7 @@ type Pokemon = {
   url: string;
 };
 
-const ChoosePoke = () => {
+const ChoosePoke: React.FC<ChoosePokeProps> = ({ name, setName }) => {
   const [pokeList, setPokeList] = useState<string[]>([]);
   const [input, setInput] = useState("");
 
@@ -45,7 +45,7 @@ const ChoosePoke = () => {
       <div className="flex flex-row">
         <Dialog>
           <div className="flex flex-row">
-            <DialogTrigger>
+            <DialogTrigger asChild>
               <Button className="m-auto p-auto sm:w-[180px] h-[50px] w-[120px]">
                 <div className="flex flex-row gap-2 justify-center items-center">
                   <CiSquarePlus size={25} />
@@ -54,14 +54,14 @@ const ChoosePoke = () => {
               </Button>
             </DialogTrigger>
             <div className="m-auto px-3">
-              {input || "Choose Pokemon to breed"}
+              {name ? "Selected: " + name : "Choose Pokemon to breed"}
             </div>
           </div>
           <DialogContent>
             <DialogHeader>
               <DialogTitle>Choose Pokemon to breed</DialogTitle>
             </DialogHeader>
-            <div className="h-[60vh] overflow-auto">
+            <div className="h-[60vh] overflow-auto flex flex-col gap-2">
               <Input
                 type="text"
                 placeholder="Search Pokemon"
@@ -79,9 +79,15 @@ const ChoosePoke = () => {
                   >
                     {({ index, style }) => (
                       <div style={style} key={index}>
-                        <div className="flex flex-row gap-2 my-2">
-                          <PokeCard name={pokeList[2 * index]} />
-                          <PokeCard name={pokeList[2 * index + 1]} />
+                        <div className="flex flex-row gap-2">
+                          <PokeCard
+                            name={pokeList[2 * index]}
+                            setPokemon={setName}
+                          />
+                          <PokeCard
+                            name={pokeList[2 * index + 1]}
+                            setPokemon={setName}
+                          />
                         </div>
                       </div>
                     )}

@@ -66,7 +66,7 @@ const Page = () => {
         </div>
         <div className="dark:bg-white bg-black md:w-[50%] w-[90%] h-[2px]"></div>
         <div className="flex flex-col justify-center gap-10 mx-auto items-center sm:w-full w-[80%] h-full">
-          <ChoosePoke />
+          <ChoosePoke name={pokemon} setName={setPokemon} />
           <TimerCount
             key={status}
             timeD={dtime}

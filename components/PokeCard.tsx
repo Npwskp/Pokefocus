@@ -10,12 +10,14 @@ import {
 import { cn } from "@/lib/utils";
 import { Button } from "./ui/button";
 import { getPokemonSprites } from "@/service/evolution";
+import { DialogClose } from "./ui/dialog";
 
 type PokeCardProps = {
   name: string;
+  setPokemon: (name: string) => void;
 };
 
-const PokeCard: React.FC<PokeCardProps> = ({ name }) => {
+const PokeCard: React.FC<PokeCardProps> = ({ name, setPokemon }) => {
   const [image, setImage] = useState<string>("");
 
   useEffect(() => {
@@ -28,7 +30,7 @@ const PokeCard: React.FC<PokeCardProps> = ({ name }) => {
 
   return (
     <Card
-      className={cn("flex-1 h-[99%]", {
+      className={cn("flex-1 h-[99%] shadow-md dark:shadow-gray-800", {
         invisible: !name,
       })}
     >
@@ -39,7 +41,15 @@ const PokeCard: React.FC<PokeCardProps> = ({ name }) => {
         <img src={image} alt={name} />
       </CardContent>
       <CardFooter>
-        <Button className="w-full">Select</Button>
+        <DialogClose className="w-full">
+          <Button
+            className="w-full"
+            onClick={() => setPokemon(name)}
+            variant="secondary"
+          >
+            Select
+          </Button>
+        </DialogClose>
       </CardFooter>
     </Card>
   );
