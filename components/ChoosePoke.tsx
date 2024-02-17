@@ -1,11 +1,11 @@
-"use sever";
-
 import { getAllPokemon } from "@/service/evolution";
 import React, { use, useEffect, useState } from "react";
 import { set } from "react-hook-form";
 import { Input } from "./ui/input";
 import { Button } from "./ui/button";
 import { CiSquarePlus } from "react-icons/ci";
+import { FixedSizeList } from "react-window";
+import AutoSizer from "react-virtualized-auto-sizer";
 import {
   Dialog,
   DialogContent,
@@ -14,6 +14,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "./ui/dialog";
+import PokeCard from "./PokeCard";
 
 type ChoosePokeProps = {
   name: string;
@@ -36,8 +37,9 @@ const ChoosePoke = () => {
       setPokeList(pokeData.filter((poke) => poke.includes(input)));
     };
     getPokemon();
-  }, [pokeList, input]);
+  }, [input]);
 
+  if (pokeList.length === 0 && input === "") return <div>Loading...</div>;
   return (
     <>
       <div className="flex flex-row">
@@ -65,10 +67,27 @@ const ChoosePoke = () => {
                 placeholder="Search Pokemon"
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
+                className="focus-visible:outline-none focus-visible:ring-0 focus-visible:ring-ring focus-visible:ring-offset-0"
               />
-              {pokeList.map((poke) => (
-                <div key={poke}>{poke}</div>
-              ))}
+              <AutoSizer>
+                {({ height, width }) => (
+                  <FixedSizeList
+                    height={height - 50}
+                    itemCount={pokeList.length / 2}
+                    itemSize={350}
+                    width={width}
+                  >
+                    {({ index, style }) => (
+                      <div style={style} key={index}>
+                        <div className="flex flex-row gap-2 my-2">
+                          <PokeCard name={pokeList[2 * index]} />
+                          <PokeCard name={pokeList[2 * index + 1]} />
+                        </div>
+                      </div>
+                    )}
+                  </FixedSizeList>
+                )}
+              </AutoSizer>
             </div>
           </DialogContent>
         </Dialog>
