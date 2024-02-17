@@ -1,10 +1,14 @@
 import axiosInstance from "./axios";
 
-export const getAllPokemon = async () => {
-  try {
-    const res = await axiosInstance.get("/pokemon?offset=0&limit=2000");
-    return res.data.results;
-  } catch (err) {
-    console.log(err);
-  }
+type Pokemon = {
+  name: string;
+  url: string;
+};
+
+export const getAllPokemon = async (): Promise<Pokemon[]> => {
+  const res = await axiosInstance
+    .get("/pokemon?offset=0&limit=1025")
+    .then((res) => res.data)
+    .catch((err) => console.log(err));
+  return res.results;
 };

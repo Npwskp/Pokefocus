@@ -1,5 +1,7 @@
+"use sever";
+
 import { getAllPokemon } from "@/service/evolution";
-import React, { useEffect, useState } from "react";
+import React, { use, useEffect, useState } from "react";
 import { set } from "react-hook-form";
 import { Input } from "./ui/input";
 import { Button } from "./ui/button";
@@ -18,20 +20,23 @@ type ChoosePokeProps = {
   setName: (name: string) => void;
 };
 
+type Pokemon = {
+  name: string;
+  url: string;
+};
+
 const ChoosePoke = () => {
-  const [pokeList, setPokeList] = useState([]);
+  const [pokeList, setPokeList] = useState<string[]>([]);
   const [input, setInput] = useState("");
 
   useEffect(() => {
     const getPokemon = async () => {
       const res = await getAllPokemon();
-      setPokeList(res);
+      const pokeData = res.map((poke: Pokemon) => poke.name);
+      setPokeList(pokeData.filter((poke) => poke.includes(input)));
     };
-
     getPokemon();
-  }, []);
-
-  console.log(pokeList);
+  }, [pokeList, input]);
 
   return (
     <>
@@ -39,13 +44,10 @@ const ChoosePoke = () => {
         <Dialog>
           <div className="flex flex-row">
             <DialogTrigger>
-              <Button className="m-auto p-auto w-[120px] h-[50px]">
+              <Button className="m-auto p-auto sm:w-[180px] h-[50px] w-[120px]">
                 <div className="flex flex-row gap-2 justify-center items-center">
                   <CiSquarePlus size={25} />
-                  <div className="">
-                    Choose <br />
-                    Pokemon
-                  </div>
+                  <div className="text-wrap">Choose Pokemon</div>
                 </div>
               </Button>
             </DialogTrigger>
@@ -55,12 +57,19 @@ const ChoosePoke = () => {
           </div>
           <DialogContent>
             <DialogHeader>
-              <DialogTitle>Are you absolutely sure?</DialogTitle>
-              <DialogDescription>
-                This action cannot be undone. This will permanently delete your
-                account and remove your data from our servers.
-              </DialogDescription>
+              <DialogTitle>Choose Pokemon to breed</DialogTitle>
             </DialogHeader>
+            <div className="h-[60vh] overflow-auto">
+              <Input
+                type="text"
+                placeholder="Search Pokemon"
+                value={input}
+                onChange={(e) => setInput(e.target.value)}
+              />
+              {pokeList.map((poke) => (
+                <div key={poke}>{poke}</div>
+              ))}
+            </div>
           </DialogContent>
         </Dialog>
       </div>
