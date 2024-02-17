@@ -9,10 +9,12 @@ import { cn } from "@/lib/utils";
 import { getScreenSize } from "@/utils/getScreenSize";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Image from "next/image";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { set, useForm } from "react-hook-form";
 import * as z from "zod";
 import { formSchema } from "@/utils/timeFormSchema";
+import { get } from "http";
+import ChoosePoke from "@/components/ChoosePoke";
 
 const Page = () => {
   const form = useForm({
@@ -43,10 +45,11 @@ const Page = () => {
   const [rtime, setRtime] = useState(0);
   const [status, setStatus] = useState("");
   const [pause, setPause] = useState(false);
+  const [pokemon, setPokemon] = useState("");
   const screen = getScreenSize();
 
   return (
-    <div className="w-[100vw] h-[100dvh] flex flex-col">
+    <div className="w-[100vw] h-[100vh] flex flex-col">
       <div className="justify-center items-center flex flex-col h-full">
         <div className="flex flow-row justify-between md:w-[50%] w-[90%] sm:p-5 p-3">
           <div className="flex flex-row gap-2">
@@ -63,6 +66,7 @@ const Page = () => {
         </div>
         <div className="dark:bg-white bg-black md:w-[50%] w-[90%] h-[2px]"></div>
         <div className="flex flex-col justify-center gap-10 mx-auto items-center sm:w-full w-[80%] h-full">
+          <ChoosePoke />
           <TimerCount
             key={status}
             timeD={dtime}

@@ -76,7 +76,6 @@ const TimerCount = ({
             size={500 * smul}
             strokeWidth={30}
             onUpdate={(elapsedTime) => {
-              console.log(elapsedTime);
               if (status === "start") {
                 if (elapsedTime === Math.ceil(_time * 0.6) + 1) {
                   setPath("/067.png");
