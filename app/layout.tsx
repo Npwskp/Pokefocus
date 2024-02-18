@@ -9,6 +9,9 @@ const inter = Roboto({ subsets: ["latin"], weight: "400" });
 export const metadata: Metadata = {
   title: "PokeFocus",
   description: "Do a focus session to breed your favorite Pokemon",
+  icons: {
+    icon: "/pokeball.png",
+  },
 };
 
 export default function RootLayout({
