@@ -11,6 +11,7 @@ import { cn } from "@/lib/utils";
 import { Button } from "./ui/button";
 import { getPokemonSprites } from "@/service/evolution";
 import { DialogClose } from "./ui/dialog";
+import Image from "next/image";
 
 type PokeCardProps = {
   name: string;
@@ -38,7 +39,7 @@ const PokeCard: React.FC<PokeCardProps> = ({ name, setPokemon }) => {
         <CardTitle className="m-auto">{name}</CardTitle>
       </CardHeader>
       <CardContent>
-        <img src={image} alt={name} />
+        <Image src={image} width={200} height={200} alt="pokemon" />
       </CardContent>
       <CardFooter>
         <DialogClose className="w-full">
