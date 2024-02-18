@@ -6,16 +6,15 @@ import { ModeToggle } from "@/components/mode-toggle";
 import { Button } from "@/components/ui/button";
 import { Form } from "@/components/ui/form";
 import { cn } from "@/lib/utils";
-import { getScreenSize } from "@/utils/getScreenSize";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Image from "next/image";
 import React, { use, useEffect, useState } from "react";
-import { set, useForm } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import * as z from "zod";
 import { formSchema } from "@/utils/timeFormSchema";
-import { get } from "http";
 import ChoosePoke from "@/components/ChoosePoke";
-import { useScreenSize } from "@/hook/useScreenSize";
+
+export type Status = "start" | "rest" | "timesup" | "";
 
 const Page = () => {
   const form = useForm({
@@ -44,9 +43,11 @@ const Page = () => {
 
   const [dtime, setDtime] = useState(0);
   const [rtime, setRtime] = useState(0);
-  const [status, setStatus] = useState("");
+  const [status, setStatus] = useState<Status>("");
   const [pause, setPause] = useState(false);
   const [pokemon, setPokemon] = useState("");
+
+  useEffect(() => {}, []);
 
   return (
     <div className="w-[100vw] h-[100svh] flex flex-col justify-center items-center overflow-auto">
@@ -64,8 +65,10 @@ const Page = () => {
         <ModeToggle />
       </div>
       <div className="dark:bg-white bg-black md:w-[50%] w-[90%] h-[2px]"></div>
-      <div className="flex flex-col justify-center gap-10 mx-auto items-center sm:w-full w-[80%] h-full">
-        <ChoosePoke name={pokemon} setName={setPokemon} />
+      <div className="flex flex-col justify-around mx-auto items-center sm:w-full w-[80%] h-full">
+        <div className={status === "" || status === "timesup" ? "" : "hidden"}>
+          <ChoosePoke name={pokemon} setName={setPokemon} />
+        </div>
         <TimerCount
           key={status}
           timeD={dtime}
@@ -78,8 +81,7 @@ const Page = () => {
           <form
             onSubmit={form.handleSubmit(onSubmit)}
             className={cn("space-y-8", {
-              hidden:
-                status === "start" || status === "rest" || status === "pause",
+              hidden: status === "start" || status === "rest",
             })}
           >
             <div className="flex flex-col gap-2 items-center justify-center">

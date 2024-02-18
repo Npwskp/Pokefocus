@@ -1,3 +1,4 @@
+import { Status } from "@/app/page";
 import { useScreenSize } from "@/hook/useScreenSize";
 import Image from "next/image";
 import React, { useState } from "react";
@@ -8,7 +9,7 @@ type TimerCountProps = {
   timeR: number;
   status: string;
   isPaused: boolean;
-  setStatus: (status: string) => void;
+  setStatus: (status: Status) => void;
 };
 
 function formatTime(time: string): string {
@@ -27,7 +28,6 @@ const TimerCount = ({
   isPaused,
 }: TimerCountProps) => {
   const [path, setPath] = useState("/066.png");
-  const [time, setTime] = useState(0);
   const screen = useScreenSize();
 
   function renderTime(status: string) {
@@ -53,7 +53,7 @@ const TimerCount = ({
             {({ remainingTime }) => {
               return (
                 <div className="font-bold">
-                  {status == "timesup" ? "Time's Up !" : "Insert Time !"}
+                  {status === "timesup" ? "Time's Up !" : "Insert Time !"}
                 </div>
               );
             }}
@@ -98,13 +98,13 @@ const TimerCount = ({
                   <div className="flex flex-col justify-center items-center sm:text-6xl text-4xl sm:gap-2 gap-1">
                     <Image
                       src={path}
-                      width={screen.width > 600 ? 200 * 1.2 : 200 * 1.7}
-                      height={screen.width > 600 ? 200 * 0.2 : 200 * 1.7}
+                      width={screen.width > 600 ? 250 : 150}
+                      height={screen.width > 600 ? 250 : 150}
                       alt="pokemon"
                     />
                     {formatTime(`${hour}:${minute}:${second}`)}
                     <div className="sm:text-3xl text-xl">
-                      {status == "start" ? "Focus" : "Rest"} Time
+                      {status === "start" ? "Focus" : "Rest"} Time
                     </div>
                   </div>
                 </div>

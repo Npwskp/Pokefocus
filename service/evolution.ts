@@ -5,7 +5,7 @@ type Pokemon = {
   url: string;
 };
 
-type sprites = {
+export type sprites = {
   back_default: string;
   back_female: string;
   back_shiny: string;

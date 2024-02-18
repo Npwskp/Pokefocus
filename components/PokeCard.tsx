@@ -13,6 +13,7 @@ import { getPokemonSprites } from "@/service/evolution";
 import { DialogClose } from "./ui/dialog";
 import Image from "next/image";
 import { useScreenSize } from "@/hook/useScreenSize";
+import { useGetPokemonPic } from "@/hook/useGetPokemonPic";
 
 type PokeCardProps = {
   name: string;
@@ -20,16 +21,8 @@ type PokeCardProps = {
 };
 
 const PokeCard: React.FC<PokeCardProps> = ({ name, setPokemon }) => {
-  const [image, setImage] = useState<string>("");
   const screenSize = useScreenSize();
-
-  useEffect(() => {
-    const getPokemonPic = async () => {
-      const res = await getPokemonSprites(name);
-      setImage(res?.other["official-artwork"].front_default || "");
-    };
-    getPokemonPic();
-  }, [name]);
+  const image = useGetPokemonPic({ name, isIcon: false });
 
   return (
     <Card
@@ -49,7 +42,7 @@ const PokeCard: React.FC<PokeCardProps> = ({ name, setPokemon }) => {
       </CardHeader>
       <CardContent className="items-center">
         <Image
-          src={image}
+          src={image?.toString() || "/pokeball.png"}
           width={screenSize.width > 600 ? 200 : 100}
           height={screenSize.width > 600 ? 200 : 100}
           alt="pokemon"

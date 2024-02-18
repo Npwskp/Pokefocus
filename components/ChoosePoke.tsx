@@ -16,6 +16,8 @@ import {
 } from "./ui/dialog";
 import PokeCard from "./PokeCard";
 import { useScreenSize } from "@/hook/useScreenSize";
+import { useGetPokemonPic } from "@/hook/useGetPokemonPic";
+import Image from "next/image";
 
 type ChoosePokeProps = {
   name: string;
@@ -31,6 +33,7 @@ const ChoosePoke: React.FC<ChoosePokeProps> = ({ name, setName }) => {
   const [pokeList, setPokeList] = useState<string[]>([]);
   const [input, setInput] = useState("");
   const screenSize = useScreenSize();
+  const img = useGetPokemonPic({ name, isIcon: true });
 
   useEffect(() => {
     const getPokemon = async () => {
@@ -56,7 +59,20 @@ const ChoosePoke: React.FC<ChoosePokeProps> = ({ name, setName }) => {
               </Button>
             </DialogTrigger>
             <div className="m-auto px-3">
-              {name ? "Selected: " + name : "Choose Pokemon to collect"}
+              {name ? (
+                <div className="flex flex-row justify-center items-center ">
+                  <div className="">{name}</div>
+                  <Image
+                    src={img?.toString() || "/pokeball.png"}
+                    width={80}
+                    height={80}
+                    alt="pokeIcon"
+                    className="object-contain"
+                  />
+                </div>
+              ) : (
+                "Choose Pokemon to collect"
+              )}
             </div>
           </div>
           <DialogContent>
