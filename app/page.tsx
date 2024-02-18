@@ -9,12 +9,13 @@ import { cn } from "@/lib/utils";
 import { getScreenSize } from "@/utils/getScreenSize";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Image from "next/image";
-import React, { useEffect, useState } from "react";
+import React, { use, useEffect, useState } from "react";
 import { set, useForm } from "react-hook-form";
 import * as z from "zod";
 import { formSchema } from "@/utils/timeFormSchema";
 import { get } from "http";
 import ChoosePoke from "@/components/ChoosePoke";
+import { useScreenSize } from "@/hook/useScreenSize";
 
 const Page = () => {
   const form = useForm({
@@ -46,7 +47,7 @@ const Page = () => {
   const [status, setStatus] = useState("");
   const [pause, setPause] = useState(false);
   const [pokemon, setPokemon] = useState("");
-  const screen = getScreenSize();
+  const screen = useScreenSize();
 
   return (
     <div className="w-[100vw] h-[100svh] flex flex-col justify-center items-center">
