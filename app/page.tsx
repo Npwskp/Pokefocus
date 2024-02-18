@@ -76,6 +76,7 @@ const Page = () => {
           status={status}
           setStatus={setStatus}
           isPaused={pause}
+          name={pokemon}
         />
         <Form {...form}>
           <form

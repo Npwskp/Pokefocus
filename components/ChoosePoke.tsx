@@ -60,14 +60,21 @@ const ChoosePoke: React.FC<ChoosePokeProps> = ({ name, setName }) => {
             </DialogTrigger>
             <div className="m-auto px-3">
               {name ? (
-                <div className="flex flex-row justify-center items-center ">
+                <div className="flex flex-row justify-center items-center relative gap-3">
                   <div className="">{name}</div>
                   <Image
                     src={img?.toString() || "/pokeball.png"}
-                    width={80}
-                    height={80}
+                    width={60}
+                    height={60}
                     alt="pokeIcon"
-                    className="object-contain"
+                    className="object-contain bg-primary"
+                  />
+                  <Image
+                    src={"/frame.png"}
+                    width={67}
+                    height={67}
+                    alt="pokeDex"
+                    className="object-contain absolute -z-10 right-[-3px] top-[-5px]"
                   />
                 </div>
               ) : (

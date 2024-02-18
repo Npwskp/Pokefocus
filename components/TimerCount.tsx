@@ -1,4 +1,5 @@
 import { Status } from "@/app/page";
+import { useGetPokemonPic } from "@/hook/useGetPokemonPic";
 import { useScreenSize } from "@/hook/useScreenSize";
 import Image from "next/image";
 import React, { useState } from "react";
@@ -10,6 +11,7 @@ type TimerCountProps = {
   status: string;
   isPaused: boolean;
   setStatus: (status: Status) => void;
+  name: string;
 };
 
 function formatTime(time: string): string {
@@ -26,8 +28,9 @@ const TimerCount = ({
   status,
   setStatus,
   isPaused,
+  name,
 }: TimerCountProps) => {
-  const [path, setPath] = useState("/066.png");
+  const img = useGetPokemonPic({ name: name, isIcon: false });
   const screen = useScreenSize();
 
   function renderTime(status: string) {
@@ -75,19 +78,6 @@ const TimerCount = ({
             }}
             size={screen.width > 600 ? 500 * 1.2 : 500 * 0.7}
             strokeWidth={30}
-            onUpdate={(elapsedTime) => {
-              if (status === "start") {
-                if (elapsedTime === Math.ceil(_time * 0.6) + 1) {
-                  setPath("/067.png");
-                } else if (elapsedTime === Math.floor(_time * 0.3) + 1) {
-                  setPath("/068.png");
-                }
-              } else if (status === "rest") {
-                setPath("/143.png");
-              } else {
-                setPath("/066.png");
-              }
-            }}
           >
             {({ remainingTime }) => {
               const hour = Math.floor(remainingTime / 3600);
@@ -97,7 +87,7 @@ const TimerCount = ({
                 <div>
                   <div className="flex flex-col justify-center items-center sm:text-6xl text-4xl sm:gap-2 gap-1">
                     <Image
-                      src={path}
+                      src={img?.toString() || "/pokeball.png"}
                       width={screen.width > 600 ? 250 : 150}
                       height={screen.width > 600 ? 250 : 150}
                       alt="pokemon"
