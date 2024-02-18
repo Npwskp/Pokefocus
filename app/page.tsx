@@ -47,10 +47,9 @@ const Page = () => {
   const [status, setStatus] = useState("");
   const [pause, setPause] = useState(false);
   const [pokemon, setPokemon] = useState("");
-  const screen = useScreenSize();
 
   return (
-    <div className="w-[100vw] h-[100svh] flex flex-col justify-center items-center">
+    <div className="w-[100vw] h-[100svh] flex flex-col justify-center items-center overflow-auto">
       <div className="flex flow-row justify-between md:w-[50%] w-[90%] sm:p-5 p-3">
         <div className="flex flex-row gap-2">
           <div className="items-center flex text-2xl">PokeFocus</div>
@@ -73,7 +72,6 @@ const Page = () => {
           timeR={rtime}
           status={status}
           setStatus={setStatus}
-          smul={screen.width > 640 ? 1.2 : 0.7}
           isPaused={pause}
         />
         <Form {...form}>

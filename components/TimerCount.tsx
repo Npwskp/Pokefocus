@@ -1,3 +1,4 @@
+import { useScreenSize } from "@/hook/useScreenSize";
 import Image from "next/image";
 import React, { useState } from "react";
 import { CountdownCircleTimer } from "react-countdown-circle-timer";
@@ -6,7 +7,6 @@ type TimerCountProps = {
   timeD: number;
   timeR: number;
   status: string;
-  smul: number;
   isPaused: boolean;
   setStatus: (status: string) => void;
 };
@@ -24,11 +24,11 @@ const TimerCount = ({
   timeR,
   status,
   setStatus,
-  smul,
   isPaused,
 }: TimerCountProps) => {
   const [path, setPath] = useState("/066.png");
   const [time, setTime] = useState(0);
+  const screen = useScreenSize();
 
   function renderTime(status: string) {
     if (status === "" || status === "timesup") {
@@ -46,7 +46,7 @@ const TimerCount = ({
               setStatus("");
             }}
             colorsTime={[3, 0]}
-            size={250}
+            size={screen.width > 600 ? 300 : 200}
             strokeWidth={30}
             trailColor="#A30000"
           >
@@ -73,7 +73,7 @@ const TimerCount = ({
             onComplete={() => {
               setStatus(status === "start" ? "rest" : "timesup");
             }}
-            size={500 * smul}
+            size={screen.width > 600 ? 500 * 1.2 : 500 * 0.7}
             strokeWidth={30}
             onUpdate={(elapsedTime) => {
               if (status === "start") {
@@ -98,8 +98,8 @@ const TimerCount = ({
                   <div className="flex flex-col justify-center items-center sm:text-6xl text-4xl sm:gap-2 gap-1">
                     <Image
                       src={path}
-                      width={200 * smul}
-                      height={200 * smul}
+                      width={screen.width > 600 ? 200 * 1.2 : 200 * 1.7}
+                      height={screen.width > 600 ? 200 * 0.2 : 200 * 1.7}
                       alt="pokemon"
                     />
                     {formatTime(`${hour}:${minute}:${second}`)}

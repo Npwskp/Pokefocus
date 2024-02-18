@@ -15,6 +15,7 @@ import {
   DialogTrigger,
 } from "./ui/dialog";
 import PokeCard from "./PokeCard";
+import { useScreenSize } from "@/hook/useScreenSize";
 
 type ChoosePokeProps = {
   name: string;
@@ -29,6 +30,7 @@ type Pokemon = {
 const ChoosePoke: React.FC<ChoosePokeProps> = ({ name, setName }) => {
   const [pokeList, setPokeList] = useState<string[]>([]);
   const [input, setInput] = useState("");
+  const screenSize = useScreenSize();
 
   useEffect(() => {
     const getPokemon = async () => {
@@ -54,12 +56,12 @@ const ChoosePoke: React.FC<ChoosePokeProps> = ({ name, setName }) => {
               </Button>
             </DialogTrigger>
             <div className="m-auto px-3">
-              {name ? "Selected: " + name : "Choose Pokemon to breed"}
+              {name ? "Selected: " + name : "Choose Pokemon to collect"}
             </div>
           </div>
           <DialogContent>
             <DialogHeader>
-              <DialogTitle>Choose Pokemon to breed</DialogTitle>
+              <DialogTitle>Choose Pokemon to collect</DialogTitle>
             </DialogHeader>
             <div className="h-[60vh] overflow-auto flex flex-col gap-2">
               <Input
@@ -74,7 +76,7 @@ const ChoosePoke: React.FC<ChoosePokeProps> = ({ name, setName }) => {
                   <FixedSizeList
                     height={height - 50}
                     itemCount={pokeList.length / 2}
-                    itemSize={350}
+                    itemSize={screenSize.width > 600 ? 350 : 250}
                     width={width}
                   >
                     {({ index, style }) => (

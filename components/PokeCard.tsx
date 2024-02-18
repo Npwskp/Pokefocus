@@ -33,9 +33,16 @@ const PokeCard: React.FC<PokeCardProps> = ({ name, setPokemon }) => {
 
   return (
     <Card
-      className={cn("flex-1 h-[99%] shadow-md dark:shadow-gray-800", {
-        invisible: !name,
-      })}
+      className={cn(
+        "flex-1 shadow-md dark:shadow-gray-800",
+        {
+          "h-[99%]": screenSize.width > 600,
+          "h-[90%]": screenSize.width <= 600,
+        },
+        {
+          invisible: !name,
+        }
+      )}
     >
       <CardHeader>
         <CardTitle className="m-auto text-lg sm:text-2xl">{name}</CardTitle>
@@ -54,6 +61,7 @@ const PokeCard: React.FC<PokeCardProps> = ({ name, setPokemon }) => {
             className="w-full"
             onClick={() => setPokemon(name)}
             variant="secondary"
+            size={screenSize.width > 600 ? "default" : "sm"}
           >
             Select
           </Button>
