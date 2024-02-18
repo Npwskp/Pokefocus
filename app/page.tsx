@@ -49,7 +49,7 @@ const Page = () => {
   const screen = getScreenSize();
 
   return (
-    <div className="w-[100vw] h-[100vh] flex flex-col">
+    <div className="w-[100vw] h-[100dvh] flex flex-col">
       <div className="justify-center items-center flex flex-col h-full">
         <div className="flex flow-row justify-between md:w-[50%] w-[90%] sm:p-5 p-3">
           <div className="flex flex-row gap-2">
