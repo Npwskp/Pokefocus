@@ -1,4 +1,4 @@
-import { Status } from "@/app/page";
+import { Status } from "@/app/LandingPage";
 import { useGetPokemonPic } from "@/hook/useGetPokemonPic";
 import { useScreenSize } from "@/hook/useScreenSize";
 import Image from "next/image";
