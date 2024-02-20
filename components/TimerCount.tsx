@@ -1,8 +1,11 @@
+"use client";
+
 import { Status } from "@/app/LandingPage";
 import { useGetPokemonPic } from "@/hook/useGetPokemonPic";
+import usePokeCollect from "@/hook/usePokeCollect";
 import { useScreenSize } from "@/hook/useScreenSize";
 import Image from "next/image";
-import React, { useEffect, useState } from "react";
+import React, { use, useEffect, useState } from "react";
 import { CountdownCircleTimer } from "react-countdown-circle-timer";
 
 type TimerCountProps = {
@@ -32,6 +35,7 @@ const TimerCount = ({
 }: TimerCountProps) => {
   const img = useGetPokemonPic({ name: name, isIcon: false });
   const screen = useScreenSize();
+  const { pokemonList, collectPokemon } = usePokeCollect(name);
 
   function renderTime(status: string) {
     if (status === "" || status === "timesup") {
@@ -74,6 +78,9 @@ const TimerCount = ({
             colors={["#004777", "#F7B801", "#A30000"]}
             colorsTime={[_time, _time / 3, 0]}
             onComplete={() => {
+              if (status === "rest") {
+                collectPokemon();
+              }
               setStatus(status === "start" ? "rest" : "timesup");
             }}
             size={screen.width > 600 ? 500 * 1.2 : 500 * 0.7}
