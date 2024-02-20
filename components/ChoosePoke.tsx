@@ -39,7 +39,9 @@ const ChoosePoke: React.FC<ChoosePokeProps> = ({ name, setName }) => {
     const getPokemon = async () => {
       const res = await getAllPokemon();
       const pokeData = res.map((poke: Pokemon) => poke.name);
-      setPokeList(pokeData.filter((poke) => poke.includes(input)));
+      setPokeList(
+        pokeData.filter((poke) => poke.includes(input.toLocaleLowerCase()))
+      );
     };
     getPokemon();
   }, [input]);
