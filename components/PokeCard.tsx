@@ -40,12 +40,13 @@ const PokeCard: React.FC<PokeCardProps> = ({ name, setPokemon }) => {
       <CardHeader>
         <CardTitle className="m-auto text-lg sm:text-2xl">{name}</CardTitle>
       </CardHeader>
-      <CardContent className="items-center">
+      <CardContent className="grid place-items-center">
         <Image
           src={image?.toString() || "/pokeball.png"}
           width={screenSize.width > 600 ? 200 : 100}
           height={screenSize.width > 600 ? 200 : 100}
           alt="pokemon"
+          className=""
         />
       </CardContent>
       <CardFooter>
