@@ -61,9 +61,7 @@ const ChoosePoke: React.FC<ChoosePokeProps> = ({ name, setName }) => {
             <div className="m-auto px-3">
               {name ? (
                 <div className="flex flex-row justify-center items-center relative gap-3">
-                  <div className="flex-1">
-                    <div className="text-wrap">{name}</div>
-                  </div>
+                  <div className="text-wrap sm:text-base text-sm">{name}</div>
                   <Image
                     src={img?.toString() || "/pokeball.png"}
                     width={60}
