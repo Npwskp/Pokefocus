@@ -2,7 +2,7 @@ import { Status } from "@/app/page";
 import { useGetPokemonPic } from "@/hook/useGetPokemonPic";
 import { useScreenSize } from "@/hook/useScreenSize";
 import Image from "next/image";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { CountdownCircleTimer } from "react-countdown-circle-timer";
 
 type TimerCountProps = {
