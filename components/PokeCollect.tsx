@@ -3,7 +3,7 @@
 import useStoredPokemonList from "@/hook/useStorePokemonList";
 import React, { useContext, useEffect, useState } from "react";
 import { Button } from "./ui/button";
-import { AppContext } from "@/app/page";
+import { AppContext } from "@/app/layout";
 
 const PokeCollect = () => {
   const { pokemonList } = useContext(AppContext);
