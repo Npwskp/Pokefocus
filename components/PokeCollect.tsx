@@ -1,15 +1,17 @@
 "use client";
 
-import useStoredPokemonList from "@/hook/useStorePokemonList";
 import React, { useContext, useEffect, useState } from "react";
 import { Button } from "./ui/button";
-import { AppContext } from "@/app/layout";
+import { usePokeListStore } from "@/app/page";
+import { useStore } from "zustand";
+import { useGetPokemonPic } from "@/hook/useGetPokemonPic";
+import { getPokemonSprites } from "@/service/evolution";
+import CollectedCard from "./CollectedCard";
 
 const PokeCollect = () => {
-  const { pokemonList } = useContext(AppContext);
-  useEffect(() => {
-    console.log(pokemonList);
-  }, [pokemonList]);
+  const pokemonList = usePokeListStore((state) => state.pokeList);
+
+  useEffect(() => {}, [pokemonList]);
 
   return (
     <div className="w-full h-full">
@@ -21,12 +23,7 @@ const PokeCollect = () => {
           {pokemonList.map((poke, index) => {
             return (
               <div key={index}>
-                <Button
-                  variant="ghost"
-                  className="focus-visible:outline-dashed focus-visible:ring-0 focus-visible:ring-offset-0"
-                >
-                  {poke}
-                </Button>
+                <CollectedCard name={poke} />
               </div>
             );
           })}

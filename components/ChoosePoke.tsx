@@ -33,7 +33,7 @@ const ChoosePoke: React.FC<ChoosePokeProps> = ({ name, setName }) => {
   const [pokeList, setPokeList] = useState<string[]>([]);
   const [input, setInput] = useState("");
   const screenSize = useScreenSize();
-  const img = useGetPokemonPic({ name, isIcon: true });
+  const img = useGetPokemonPic({ name, pictype: "Icon" });
 
   useEffect(() => {
     const getPokemon = async () => {

@@ -33,7 +33,7 @@ const TimerCount = ({
   isPaused,
   name,
 }: TimerCountProps) => {
-  const img = useGetPokemonPic({ name: name, isIcon: false });
+  const img = useGetPokemonPic({ name: name, pictype: "Icon" });
   const screen = useScreenSize();
   const { pokemonList, collectPokemon } = usePokeCollect(name);
 

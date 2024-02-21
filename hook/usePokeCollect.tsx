@@ -1,8 +1,9 @@
-import { AppContext } from "@/app/page";
+import { usePokeListStore } from "@/app/page";
 import { useState, useEffect, useCallback, useContext } from "react";
 
 const usePokeCollect = (pokemonName: string) => {
-  const { pokemonList, setPokemonList } = useContext(AppContext);
+  const pokemonList = usePokeListStore((state) => state.pokeList);
+  const setPokemonList = usePokeListStore((state) => state.setPokeList);
   // console.log(pokemonList, pokemonName);
 
   const resetStorage = useCallback(() => {

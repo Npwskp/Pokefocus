@@ -15,22 +15,11 @@ export const metadata: Metadata = {
   },
 };
 
-type AppContextType = {
-  pokemonList: string[];
-  setPokemonList: (pokemonList: string[]) => void;
-};
-
-export const AppContext = createContext<AppContextType>({
-  pokemonList: [],
-  setPokemonList: () => {},
-});
-
 export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const [pokemonList, setPokemonList] = useState<string[]>([]);
   return (
     <html lang="en" className="w-full h-full">
       <ThemeProvider
@@ -39,11 +28,9 @@ export default function RootLayout({
         enableSystem={true}
         storageKey="theme"
       >
-        <AppContext.Provider value={{ pokemonList, setPokemonList }}>
-          <body className={cn(inter.className, "bg-white dark:bg-[#0f0f0f]")}>
-            {children}
-          </body>
-        </AppContext.Provider>
+        <body className={cn(inter.className, "bg-white dark:bg-[#0f0f0f]")}>
+          {children}
+        </body>
       </ThemeProvider>
     </html>
   );

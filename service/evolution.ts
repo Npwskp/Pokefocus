@@ -40,7 +40,37 @@ export type sprites = {
       front_shiny_female: string;
     };
   };
-  versions: any;
+  versions: {
+    "generation-i": any;
+    "generation-ii": any;
+    "generation-iii": any;
+    "generation-iv": any;
+    "generation-v": {
+      "black-white": {
+        animated: {
+          back_default: any;
+          back_female: any;
+          back_shiny: any;
+          back_shiny_female: any;
+          front_default: string;
+          front_female: any;
+          front_shiny: any;
+          front_shiny_female: any;
+        };
+        back_default: any;
+        back_female: any;
+        back_shiny: any;
+        back_shiny_female: any;
+        front_default: any;
+        front_female: any;
+        front_shiny: any;
+        front_shiny_female: any;
+      };
+    };
+    "generation-vi": any;
+    "generation-vii": any;
+    "generation-viii": any;
+  };
 };
 
 export const getAllPokemon = async (): Promise<Pokemon[]> => {
