@@ -1,4 +1,4 @@
-import { usePokeListStore } from "@/app/page";
+import { usePokeListStore } from "@/app/LandingPage";
 import { useState, useEffect, useCallback, useContext } from "react";
 
 const usePokeCollect = (pokemonName: string) => {

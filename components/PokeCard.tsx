@@ -22,7 +22,7 @@ type PokeCardProps = {
 
 const PokeCard: React.FC<PokeCardProps> = ({ name, setPokemon }) => {
   const screenSize = useScreenSize();
-  const image = useGetPokemonPic({ name, isIcon: false });
+  const image = useGetPokemonPic({ name, pictype: "Icon" });
 
   return (
     <Card

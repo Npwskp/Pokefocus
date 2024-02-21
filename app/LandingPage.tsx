@@ -13,8 +13,24 @@ import { useForm } from "react-hook-form";
 import * as z from "zod";
 import { formSchema } from "@/utils/timeFormSchema";
 import ChoosePoke from "@/components/ChoosePoke";
+import PokeCollect from "@/components/PokeCollect";
+import { create } from "zustand";
 
 export type Status = "start" | "rest" | "timesup" | "";
+
+export interface PokeListStore {
+  pokeList: string[];
+  setPokeList: (pokeList: string[]) => void;
+}
+
+export const usePokeListStore = create<PokeListStore>()((set) => ({
+  pokeList: [],
+  setPokeList: (pokeList: string[]) =>
+    set((state) => ({
+      ...state,
+      pokeList,
+    })),
+}));
 
 const LandingPage = () => {
   const form = useForm({
@@ -50,103 +66,108 @@ const LandingPage = () => {
   useEffect(() => {}, []);
 
   return (
-    <div className="w-full h-[100svh] flex flex-col justify-center items-center overflow-auto">
-      <div className="flex flow-row justify-between md:w-[50%] w-[90%] sm:p-5 p-3">
-        <div className="flex flex-row gap-2">
-          <div className="items-center flex text-2xl">PokeFocus</div>
-          <Image
-            src="/025.png"
-            width={50}
-            height={50}
-            alt="pika"
-            className="object-contain"
+    <>
+      <div className="w-full h-[100svh] flex flex-col justify-center items-center overflow-auto">
+        <div className="flex flow-row justify-between md:w-[50%] w-[90%] sm:p-5 p-3">
+          <div className="flex flex-row gap-2">
+            <div className="items-center flex text-2xl">PokeFocus</div>
+            <Image
+              src="/025.png"
+              width={50}
+              height={50}
+              alt="pika"
+              className="object-contain"
+            />
+          </div>
+          <ModeToggle />
+        </div>
+        <div className="dark:bg-white bg-black md:w-[50%] w-[90%] h-[2px]"></div>
+        <div className="flex flex-col justify-around mx-auto items-center sm:w-full w-[80%] h-full">
+          <div
+            className={status === "" || status === "timesup" ? "" : "hidden"}
+          >
+            <ChoosePoke name={pokemon} setName={setPokemon} />
+          </div>
+          <TimerCount
+            key={status}
+            timeD={dtime}
+            timeR={rtime}
+            status={status}
+            setStatus={setStatus}
+            isPaused={pause}
+            name={pokemon}
           />
-        </div>
-        <ModeToggle />
-      </div>
-      <div className="dark:bg-white bg-black md:w-[50%] w-[90%] h-[2px]"></div>
-      <div className="flex flex-col justify-around mx-auto items-center sm:w-full w-[80%] h-full">
-        <div className={status === "" || status === "timesup" ? "" : "hidden"}>
-          <ChoosePoke name={pokemon} setName={setPokemon} />
-        </div>
-        <TimerCount
-          key={status}
-          timeD={dtime}
-          timeR={rtime}
-          status={status}
-          setStatus={setStatus}
-          isPaused={pause}
-          name={pokemon}
-        />
-        <Form {...form}>
-          <form
-            onSubmit={form.handleSubmit(onSubmit)}
-            className={cn("space-y-8", {
-              hidden: status === "start" || status === "rest",
-            })}
-          >
-            <div className="flex flex-col gap-2 items-center justify-center">
-              <div>Focus Time</div>
-              <div className="flex flex-row w-full">
-                {["dhour", "dminute", "dsecond"].map((name) => (
-                  <TimeFormField
-                    key={name}
-                    form={form}
-                    register={register}
-                    name={name}
-                  />
-                ))}
+          <Form {...form}>
+            <form
+              onSubmit={form.handleSubmit(onSubmit)}
+              className={cn("space-y-8", {
+                hidden: status === "start" || status === "rest",
+              })}
+            >
+              <div className="flex flex-col gap-2 items-center justify-center">
+                <div>Focus Time</div>
+                <div className="flex flex-row w-full">
+                  {["dhour", "dminute", "dsecond"].map((name) => (
+                    <TimeFormField
+                      key={name}
+                      form={form}
+                      register={register}
+                      name={name}
+                    />
+                  ))}
+                </div>
               </div>
-            </div>
-            <div className="flex flex-col gap-2 items-center justify-center">
-              <div>Rest time</div>
-              <div className="flex flex-row w-full">
-                {["rhour", "rminute", "rsecond"].map((name) => (
-                  <TimeFormField
-                    key={name}
-                    form={form}
-                    register={register}
-                    name={name}
-                  />
-                ))}
+              <div className="flex flex-col gap-2 items-center justify-center">
+                <div>Rest time</div>
+                <div className="flex flex-row w-full">
+                  {["rhour", "rminute", "rsecond"].map((name) => (
+                    <TimeFormField
+                      key={name}
+                      form={form}
+                      register={register}
+                      name={name}
+                    />
+                  ))}
+                </div>
               </div>
-            </div>
 
-            <div className="flex w-full justify-center">
-              <Button type="submit" className="text-2xl" size={"lg"}>
-                START
-              </Button>
-            </div>
-          </form>
-        </Form>
-        <div
-          className={cn(
-            "flex flow-row sm:justify-evenly justify-between items-center w-full",
-            {
-              hidden: status === "timesup" || status === "",
-            }
-          )}
-        >
-          <Button
-            variant={"circle"}
-            className="font-semibold h-20"
-            onClick={() => setPause((prev) => !prev)}
+              <div className="flex w-full justify-center">
+                <Button type="submit" className="text-2xl" size={"lg"}>
+                  START
+                </Button>
+              </div>
+            </form>
+          </Form>
+          <div
+            className={cn(
+              "flex flow-row sm:justify-evenly justify-between items-center w-full",
+              {
+                hidden: status === "timesup" || status === "",
+              }
+            )}
           >
-            {pause ? "Resume" : "Pause"}
-          </Button>
-          <Button
-            variant={"circle"}
-            className="font-semibold h-20"
-            onClick={() => {
-              setStatus("");
-              setPause(false);
-            }}
-          >
-            Reset
-          </Button>
+            <Button
+              variant={"circle"}
+              className="font-semibold h-20"
+              onClick={() => setPause((prev) => !prev)}
+            >
+              {pause ? "Resume" : "Pause"}
+            </Button>
+            <Button
+              variant={"circle"}
+              className="font-semibold h-20"
+              onClick={() => {
+                setStatus("");
+                setPause(false);
+              }}
+            >
+              Reset
+            </Button>
+          </div>
         </div>
       </div>
-    </div>
+      <PokeCollect />
+    </>
   );
 };
 

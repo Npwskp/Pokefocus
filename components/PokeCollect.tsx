@@ -2,10 +2,7 @@
 
 import React, { useContext, useEffect, useState } from "react";
 import { Button } from "./ui/button";
-import { usePokeListStore } from "@/app/page";
-import { useStore } from "zustand";
-import { useGetPokemonPic } from "@/hook/useGetPokemonPic";
-import { getPokemonSprites } from "@/service/evolution";
+import { usePokeListStore } from "@/app/LandingPage";
 import CollectedCard from "./CollectedCard";
 
 const PokeCollect = () => {
