@@ -62,8 +62,9 @@ const LandingPage = () => {
   const [status, setStatus] = useState<Status>("");
   const [pause, setPause] = useState(false);
   const [pokemon, setPokemon] = useState("");
+  const pokemonList = usePokeListStore((state) => state.pokeList);
 
-  useEffect(() => {}, []);
+  useEffect(() => {}, [pokemonList]);
 
   return (
     <>

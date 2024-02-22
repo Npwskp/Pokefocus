@@ -33,9 +33,9 @@ const TimerCount = ({
   isPaused,
   name,
 }: TimerCountProps) => {
-  const img = useGetPokemonPic({ name: name, pictype: "Icon" });
+  const img = useGetPokemonPic({ name: name, pictype: "Picture" });
   const screen = useScreenSize();
-  const { pokemonList, collectPokemon } = usePokeCollect(name);
+  const { collectPokemon, ...trash } = usePokeCollect(name);
 
   function renderTime(status: string) {
     if (status === "" || status === "timesup") {
@@ -94,7 +94,7 @@ const TimerCount = ({
                 <div>
                   <div className="flex flex-col justify-center items-center sm:text-6xl text-4xl sm:gap-2 gap-1">
                     <Image
-                      src={img?.toString() || "/pokeball.png"}
+                      src={img?.toString() || ""}
                       width={screen.width > 600 ? 250 : 150}
                       height={screen.width > 600 ? 250 : 150}
                       alt="pokemon"

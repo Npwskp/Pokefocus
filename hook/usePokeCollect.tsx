@@ -19,6 +19,15 @@ const usePokeCollect = (pokemonName: string) => {
     localStorage.setItem("pokemonList", JSON.stringify(newPokemonList));
   };
 
+  const deletePokemon = (name: string) => {
+    const newPokemonList = pokemonList.filter(
+      (poke, idx) => idx !== pokemonList.lastIndexOf(name)
+    );
+    console.log(newPokemonList);
+    setPokemonList(newPokemonList);
+    localStorage.setItem("pokemonList", JSON.stringify(newPokemonList));
+  };
+
   const setTimeMidnight = () => {
     const now = new Date();
     const time = new Date(
@@ -56,7 +65,7 @@ const usePokeCollect = (pokemonName: string) => {
     }
   }, [resetStorage, setPokemonList]);
 
-  return { pokemonList, collectPokemon };
+  return { pokemonList, collectPokemon, deletePokemon };
 };
 
 export default usePokeCollect;
