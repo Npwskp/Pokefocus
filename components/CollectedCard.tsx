@@ -1,41 +1,47 @@
 import { useGetPokemonPic } from "@/hook/useGetPokemonPic";
 import Image from "next/image";
-import React from "react";
+import React, { useState } from "react";
+import Modal from "./Modal";
+import SmallModal from "./SmallModal";
+import usePokeCollect from "@/hook/usePokeCollect";
 
 type CollectedCardProps = {
   name: string;
-  setSelectedPokemon: (name: string) => void;
+  idx: number;
 };
 
-const CollectedCard: React.FC<CollectedCardProps> = ({
-  name,
-  setSelectedPokemon,
-}) => {
+const CollectedCard: React.FC<CollectedCardProps> = ({ name, idx }) => {
   const img = useGetPokemonPic({ name, pictype: "Gif" });
   const divRef = React.useRef<HTMLDivElement>(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const { deletePokemon, ...trash } = usePokeCollect(name);
 
-  function handleSelect(name: string) {
-    if (divRef.current) {
-      divRef.current.focus();
-    }
-    setSelectedPokemon(name);
-  }
+  const openModal = () => setIsModalOpen(true);
+  const closeModal = () => setIsModalOpen(false);
 
   return (
     <div
       ref={divRef}
       tabIndex={0}
-      onClick={() => handleSelect(name)}
-      className="flex flex-col items-center justify-around focus:ring focus:ring-destructive rounded-lg cursor-pointer"
+      className="flex flex-col items-center justify-around focus:ring focus:ring-destructive rounded-lg cursor-pointer relative"
     >
-      <Image
-        src={img?.toString() || "/pokeball.png"}
-        alt={name}
-        width={80}
-        height={80}
-        className="object-contain w-[80px] h-[80px] grid place-items-center"
+      <div onClick={openModal}>
+        <Image
+          src={img?.toString() || "/pokeball.png"}
+          alt={name}
+          width={80}
+          height={80}
+          className="object-contain w-[80px] h-[80px] grid place-items-center"
+        />
+        <div className="text-center text-sm">{name}</div>
+      </div>
+      <SmallModal
+        key={idx}
+        isOpen={isModalOpen}
+        onClose={closeModal}
+        text="Delete"
+        onDelete={() => deletePokemon(idx)}
       />
-      <div className="text-center text-sm">{name}</div>
     </div>
   );
 };

@@ -19,10 +19,8 @@ const usePokeCollect = (pokemonName: string) => {
     localStorage.setItem("pokemonList", JSON.stringify(newPokemonList));
   };
 
-  const deletePokemon = (name: string) => {
-    const newPokemonList = pokemonList.filter(
-      (poke, idx) => idx !== pokemonList.lastIndexOf(name)
-    );
+  const deletePokemon = (index: Number) => {
+    const newPokemonList = pokemonList.filter((poke, idx) => idx !== index);
     console.log(newPokemonList);
     setPokemonList(newPokemonList);
     localStorage.setItem("pokemonList", JSON.stringify(newPokemonList));
