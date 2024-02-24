@@ -79,8 +79,8 @@ const LandingPage = () => {
   return (
     <>
       {isAlert && <AlertDestructive message={isAlert} setAlert={setIsAlert} />}
-      <div className="w-full h-[100svh] flex flex-col justify-center items-center overflow-auto">
-        <div className="flex flow-row justify-between md:w-[50%] w-[90%] sm:p-5 p-3">
+      <div className="w-full h-[100svh] flex flex-col justify-around items-center overflow-auto">
+        <div className="flex flow-row justify-between sm:w-[80%] w-[90%] sm:p-5 p-3">
           <div className="flex flex-row gap-2">
             <div className="items-center flex text-2xl">PokeFocus</div>
             <Image
@@ -93,13 +93,16 @@ const LandingPage = () => {
           </div>
           <ModeToggle />
         </div>
-        <div className="dark:bg-white bg-black md:w-[50%] w-[90%] h-[2px]"></div>
+        <div className="dark:bg-white bg-black sm:w-[80%] w-[90%] h-[2px]"></div>
+        <div
+          className={
+            (status === "" || status === "timesup" ? "" : "hidden") +
+            "md:mt-6 mt-4"
+          }
+        >
+          <ChoosePoke name={pokemon} setName={setPokemon} />
+        </div>
         <div className="flex flex-col justify-around mx-auto items-center sm:w-full w-[80%] h-full">
-          <div
-            className={status === "" || status === "timesup" ? "" : "hidden"}
-          >
-            <ChoosePoke name={pokemon} setName={setPokemon} />
-          </div>
           <TimerCount
             key={status}
             timeD={dtime}
