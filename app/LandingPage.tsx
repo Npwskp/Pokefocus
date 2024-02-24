@@ -15,6 +15,7 @@ import { formSchema } from "@/utils/timeFormSchema";
 import ChoosePoke from "@/components/ChoosePoke";
 import PokeCollect from "@/components/PokeCollect";
 import { create } from "zustand";
+import { AlertDestructive } from "@/components/AlertDestrutive";
 
 export type Status = "start" | "rest" | "timesup" | "";
 
@@ -51,9 +52,17 @@ const LandingPage = () => {
     console.log(values);
     const dtime = values.dhour * 3600 + values.dminute * 60 + values.dsecond;
     const rtime = values.rhour * 3600 + values.rminute * 60 + values.rsecond;
-    if (dtime === 0 || rtime === 0) return;
+    if (dtime === 0 || rtime === 0) {
+      setIsAlert("Please fill in all the form");
+      return;
+    }
+    if (pokemon === "") {
+      setIsAlert("Please choose a pokemon");
+      return;
+    }
     setDtime(dtime);
     setRtime(rtime);
+    setIsAlert("");
     setStatus("start");
   };
 
@@ -63,11 +72,13 @@ const LandingPage = () => {
   const [pause, setPause] = useState(false);
   const [pokemon, setPokemon] = useState("");
   const pokemonList = usePokeListStore((state) => state.pokeList);
+  const [isAlert, setIsAlert] = useState("");
 
-  useEffect(() => {}, [pokemonList]);
+  useEffect(() => {}, [pokemonList, isAlert]);
 
   return (
     <>
+      {isAlert && <AlertDestructive message={isAlert} setAlert={setIsAlert} />}
       <div className="w-full h-[100svh] flex flex-col justify-center items-center overflow-auto">
         <div className="flex flow-row justify-between md:w-[50%] w-[90%] sm:p-5 p-3">
           <div className="flex flex-row gap-2">
