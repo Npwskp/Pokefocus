@@ -33,7 +33,7 @@ const CollectedCard: React.FC<CollectedCardProps> = ({ name, idx }) => {
       className={cn(
         "flex flex-col items-center justify-around focus:ring focus:ring-destructive rounded-lg cursor-pointer relative h-full w-full",
         {
-          "transition-all duration-500 size-0 bg-secondary": isCardDelete,
+          "transition-all duration-500 opacity-0": isCardDelete,
         }
       )}
       onClick={openModal}
@@ -42,17 +42,11 @@ const CollectedCard: React.FC<CollectedCardProps> = ({ name, idx }) => {
         <Image
           src={img?.toString() || "/pokeball.png"}
           alt={name}
-          width={isCardDelete ? 0 : 80}
-          height={isCardDelete ? 0 : 80}
+          width={80}
+          height={80}
           className="object-contain w-[80px] h-[80px] grid place-items-center"
         />
-        <div
-          className={cn("text-center text-sm", {
-            hidden: isCardDelete,
-          })}
-        >
-          {name}
-        </div>
+        <div className="text-center text-sm">{name}</div>
       </div>
       <SmallModal
         key={idx}
