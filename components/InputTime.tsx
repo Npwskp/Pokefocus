@@ -16,7 +16,7 @@ const InputTime = ({ register, name }: InputTimeProps) => {
           name.slice(1, 2).toUpperCase() + name.slice(2, name.length)
         }
         {...register(name, { valueAsNumber: true })}
-        className="pr-6"
+        className="pr-6 bg-secondary"
       />
       <div className="absolute right-2">{name.slice(1, 2)}</div>
     </div>

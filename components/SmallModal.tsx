@@ -48,7 +48,6 @@ const SmallModal: React.FC<ModalProps> = ({
         variant={"destructive"}
         onClick={() => {
           onDelete();
-          onClose();
         }}
       >
         {text}

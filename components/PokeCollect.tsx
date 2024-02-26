@@ -1,14 +1,14 @@
 "use client";
 
-import React, { useContext, useEffect, useState } from "react";
-import { Button } from "./ui/button";
-import { PokeListStore, usePokeListStore } from "@/app/LandingPage";
+import React, { useEffect, useState } from "react";
+import { usePokeListStore } from "@/app/LandingPage";
 import CollectedCard from "./CollectedCard";
-import usePokeCollect from "@/hook/usePokeCollect";
+import { useAutoAnimate } from "@formkit/auto-animate/react";
 import { cn } from "@/lib/utils";
 
 const PokeCollect = () => {
   const pokemonList = usePokeListStore((state) => state.pokeList);
+  // const [parent, setParent] = useAutoAnimate();
 
   useEffect(() => {
     console.log(pokemonList);
@@ -19,10 +19,13 @@ const PokeCollect = () => {
       <div className="text-center font-semibold text-xl my-4">
         Pokemon Collected Today
       </div>
-      <div className="grid md:grid-cols-5 grid-cols-3 auto-rows-min gap-1 grid-flow-row overflow-auto lg:w-[30vw] md:[50vw] w-[80vw] h-[50dvh] border-accent m-auto border-2 rounded-lg bg-secondary mb-4 p-1">
+      <div
+        // ref={parent}
+        className="grid md:grid-cols-5 grid-cols-3 auto-rows-min gap-1 grid-flow-row overflow-auto lg:w-[30vw] md:[50vw] w-[80vw] h-[50dvh] border-accent m-auto border-2 rounded-lg bg-secondary mb-4 p-1 transition-transform duration-500"
+      >
         {pokemonList.map((poke, index) => {
           return (
-            <div key={index}>
+            <div key={poke}>
               <CollectedCard name={poke} idx={index} />
             </div>
           );

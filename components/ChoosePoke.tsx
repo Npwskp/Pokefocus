@@ -31,6 +31,7 @@ type Pokemon = {
 
 const ChoosePoke: React.FC<ChoosePokeProps> = ({ name, setName }) => {
   const [pokeList, setPokeList] = useState<string[]>([]);
+  const [showPokeList, setShowPokeList] = useState<string[]>([]);
   const [input, setInput] = useState("");
   const screenSize = useScreenSize();
   const img = useGetPokemonPic({ name, pictype: "Icon" });
@@ -39,12 +40,21 @@ const ChoosePoke: React.FC<ChoosePokeProps> = ({ name, setName }) => {
     const getPokemon = async () => {
       const res = await getAllPokemon();
       const pokeData = res.map((poke: Pokemon) => poke.name);
-      setPokeList(
-        pokeData.filter((poke) => poke.includes(input.toLocaleLowerCase()))
-      );
+      setPokeList(pokeData);
     };
     getPokemon();
-  }, [input]);
+  }, []);
+
+  useEffect(() => {
+    if (input === "") {
+      setShowPokeList(pokeList);
+    } else {
+      const filterPoke = pokeList.filter((poke) =>
+        poke.toLowerCase().includes(input.toLowerCase())
+      );
+      setShowPokeList(filterPoke);
+    }
+  }, [input, pokeList]);
 
   if (pokeList.length === 0 && input === "") return <div>Loading...</div>;
   return (
@@ -53,9 +63,8 @@ const ChoosePoke: React.FC<ChoosePokeProps> = ({ name, setName }) => {
         <Dialog>
           <div className="flex flex-row">
             <DialogTrigger asChild className="transition-all">
-              <Button className="m-auto p-auto sm:w-[180px] h-[50px] w-[120px] bg-primary">
+              <Button className="m-auto p-auto sm:w-[160px] w-[120px] h-[50px] bg-primary">
                 <div className="flex flex-row gap-2 justify-center items-center">
-                  <CiSquarePlus size={25} />
                   <div className="text-wrap">Choose Pokemon</div>
                 </div>
               </Button>
@@ -86,7 +95,7 @@ const ChoosePoke: React.FC<ChoosePokeProps> = ({ name, setName }) => {
               )}
             </div>
           </div>
-          <DialogContent>
+          <DialogContent className="transition-all duration-300">
             <DialogHeader>
               <DialogTitle>Choose Pokemon to collect</DialogTitle>
             </DialogHeader>
@@ -102,7 +111,7 @@ const ChoosePoke: React.FC<ChoosePokeProps> = ({ name, setName }) => {
                 {({ height, width }) => (
                   <FixedSizeList
                     height={height - 50}
-                    itemCount={pokeList.length / 2}
+                    itemCount={showPokeList.length / 2}
                     itemSize={screenSize.width > 600 ? 350 : 250}
                     width={width}
                   >
@@ -110,11 +119,11 @@ const ChoosePoke: React.FC<ChoosePokeProps> = ({ name, setName }) => {
                       <div style={style} key={index}>
                         <div className="flex flex-row gap-2">
                           <PokeCard
-                            name={pokeList[2 * index]}
+                            name={showPokeList[2 * index]}
                             setPokemon={setName}
                           />
                           <PokeCard
-                            name={pokeList[2 * index + 1]}
+                            name={showPokeList[2 * index + 1]}
                             setPokemon={setName}
                           />
                         </div>
