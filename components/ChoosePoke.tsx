@@ -52,8 +52,8 @@ const ChoosePoke: React.FC<ChoosePokeProps> = ({ name, setName }) => {
       <div className="flex flex-row">
         <Dialog>
           <div className="flex flex-row">
-            <DialogTrigger asChild>
-              <Button className="m-auto p-auto sm:w-[180px] h-[50px] w-[120px]">
+            <DialogTrigger asChild className="transition-all">
+              <Button className="m-auto p-auto sm:w-[180px] h-[50px] w-[120px] bg-primary">
                 <div className="flex flex-row gap-2 justify-center items-center">
                   <CiSquarePlus size={25} />
                   <div className="text-wrap">Choose Pokemon</div>

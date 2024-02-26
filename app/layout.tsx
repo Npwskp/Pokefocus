@@ -1,11 +1,11 @@
 import type { Metadata } from "next";
-import { Josefin_Sans, Open_Sans, Roboto } from "next/font/google";
+import { DM_Sans, Exo_2, Lexend, Quicksand, Roboto } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
 import { cn } from "@/lib/utils";
 import { createContext, useState } from "react";
 
-const inter = Roboto({ subsets: ["latin"], weight: "400" });
+const inter = Quicksand({ subsets: ["latin"], weight: "700" });
 
 export const metadata: Metadata = {
   title: "PokeFocus",

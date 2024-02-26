@@ -23,9 +23,10 @@ const CollectedCard: React.FC<CollectedCardProps> = ({ name, idx }) => {
     <div
       ref={divRef}
       tabIndex={0}
-      className="flex flex-col items-center justify-around focus:ring focus:ring-destructive rounded-lg cursor-pointer relative"
+      className="flex flex-col items-center justify-around focus:ring focus:ring-destructive rounded-lg cursor-pointer relative h-full w-full"
+      onClick={openModal}
     >
-      <div onClick={openModal}>
+      <div>
         <Image
           src={img?.toString() || "/pokeball.png"}
           alt={name}

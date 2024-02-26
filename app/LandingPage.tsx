@@ -95,10 +95,9 @@ const LandingPage = () => {
         </div>
         <div className="dark:bg-white bg-black sm:w-[80%] w-[90%] h-[2px]"></div>
         <div
-          className={
-            (status === "" || status === "timesup" ? "" : "hidden") +
-            "md:mt-6 mt-4"
-          }
+          className={cn("md:mt-6 mt-4", {
+            hidden: status === "start" || status === "rest",
+          })}
         >
           <ChoosePoke name={pokemon} setName={setPokemon} />
         </div>
@@ -147,7 +146,11 @@ const LandingPage = () => {
               </div>
 
               <div className="flex w-full justify-center">
-                <Button type="submit" className="text-2xl" size={"lg"}>
+                <Button
+                  type="submit"
+                  className="text-2xl bg-primary"
+                  size={"lg"}
+                >
                   START
                 </Button>
               </div>
