@@ -120,7 +120,7 @@ const LandingPage = () => {
             >
               <div className="flex flex-col gap-2 items-center justify-center">
                 <div>Focus Time</div>
-                <div className="flex flex-row w-full">
+                <div className="flex flex-row w-full gap-2">
                   {["dhour", "dminute", "dsecond"].map((name) => (
                     <TimeFormField
                       key={name}
@@ -133,7 +133,7 @@ const LandingPage = () => {
               </div>
               <div className="flex flex-col gap-2 items-center justify-center">
                 <div>Rest time</div>
-                <div className="flex flex-row w-full">
+                <div className="flex flex-row w-full gap-2">
                   {["rhour", "rminute", "rsecond"].map((name) => (
                     <TimeFormField
                       key={name}
