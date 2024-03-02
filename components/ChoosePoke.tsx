@@ -60,7 +60,7 @@ const ChoosePoke: React.FC<ChoosePokeProps> = ({ name, setName }) => {
   return (
     <>
       <div className="flex flex-row">
-        <Dialog>
+        <Dialog key={1}>
           <div className="flex flex-row">
             <DialogTrigger asChild className="transition-all">
               <Button className="m-auto p-auto sm:w-[160px] w-[120px] h-[50px] bg-primary">

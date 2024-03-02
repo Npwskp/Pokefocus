@@ -17,16 +17,21 @@ const CollectedPokeModal: React.FC<CollectedPokeModalProps> = ({
   const pokepic = useGetPokemonPic({ name: pokemon, pictype: "Gif" });
 
   return (
-    <Dialog open={isOpen}>
-      <DialogContent className="flex items-center flex-row justify-around">
-        <DialogTitle>{pokemon} Collected!</DialogTitle>
+    <Dialog open={isOpen} key={2}>
+      <DialogContent className="flex items-center flex-col justify-around">
+        <DialogTitle>
+          <span className="text-blue-600">
+            {pokemon.slice(0, 1).toUpperCase() + pokemon.slice(1)}
+          </span>{" "}
+          Collected!
+        </DialogTitle>
         <div className="">Congratulations</div>
         <Image
           src={pokepic?.toString() || "/pokeball.png"}
           alt={pokemon}
-          width={80}
-          height={80}
-          className="object-contain w-[80px] h-[80px] grid place-items-center"
+          width={100}
+          height={100}
+          className="object-contain grid place-items-center"
         />
       </DialogContent>
     </Dialog>

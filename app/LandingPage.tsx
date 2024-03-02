@@ -16,6 +16,8 @@ import ChoosePoke from "@/components/ChoosePoke";
 import PokeCollect from "@/components/PokeCollect";
 import { create } from "zustand";
 import { AlertDestructive } from "@/components/AlertDestrutive";
+import CollectedCard from "@/components/CollectedCard";
+import CollectedPokeModal from "@/components/CollectedPokeModal";
 
 export type Status = "start" | "rest" | "timesup" | "";
 
@@ -74,7 +76,7 @@ const LandingPage = () => {
   const pokemonList = usePokeListStore((state) => state.pokeList);
   const [isAlert, setIsAlert] = useState("");
 
-  useEffect(() => {}, [pokemonList, isAlert]);
+  useEffect(() => {}, [pokemonList, isAlert, status]);
 
   return (
     <>
@@ -102,6 +104,11 @@ const LandingPage = () => {
           <ChoosePoke name={pokemon} setName={setPokemon} />
         </div>
         <div className="flex flex-col justify-around mx-auto items-center sm:w-full w-[80%] h-full">
+          <CollectedPokeModal
+            open={status === "timesup"}
+            onClose={() => setStatus("")}
+            pokemon={pokemon}
+          />
           <TimerCount
             key={status}
             timeD={dtime}
