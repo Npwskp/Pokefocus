@@ -17,6 +17,7 @@ const InputTime = ({ register, name }: InputTimeProps) => {
         }
         {...register(name, { valueAsNumber: true })}
         className="pr-6 bg-secondary"
+        autoComplete="off"
       />
       <div className="absolute right-2">{name.slice(1, 2)}</div>
     </div>

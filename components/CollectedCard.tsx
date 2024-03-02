@@ -1,10 +1,8 @@
 import { useGetPokemonPic } from "@/hook/useGetPokemonPic";
 import Image from "next/image";
 import React, { use, useEffect, useState } from "react";
-import Modal from "./Modal";
 import SmallModal from "./SmallModal";
 import usePokeCollect from "@/hook/usePokeCollect";
-import { set } from "react-hook-form";
 import { cn } from "@/lib/utils";
 
 type CollectedCardProps = {
