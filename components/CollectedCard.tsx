@@ -31,7 +31,7 @@ const CollectedCard: React.FC<CollectedCardProps> = ({ name, idx }) => {
       className={cn(
         "flex flex-col items-center justify-around focus:ring focus:ring-destructive rounded-lg cursor-pointer relative h-full w-full",
         {
-          "transition-all duration-500 opacity-0": isCardDelete,
+          "transition-all duration-300 opacity-0": isCardDelete,
         }
       )}
       onClick={openModal}
@@ -56,7 +56,7 @@ const CollectedCard: React.FC<CollectedCardProps> = ({ name, idx }) => {
           const timer = setTimeout(() => {
             deletePokemon(idx);
             setIsCardDelete(false);
-          }, 500);
+          }, 300);
           return () => clearTimeout(timer);
         }}
       />
