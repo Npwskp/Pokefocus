@@ -43,7 +43,7 @@ const TimerCount = ({
         <div className="flex flex-col gap-3">
           <CountdownCircleTimer
             isPlaying={status === "timesup"}
-            duration={3}
+            duration={5}
             colors={
               status === "timesup"
                 ? ["#A30000", "#A30000"]
@@ -52,7 +52,7 @@ const TimerCount = ({
             onComplete={() => {
               setStatus("");
             }}
-            colorsTime={[3, 0]}
+            colorsTime={[5, 0]}
             size={screen.width > 600 ? 300 : 200}
             strokeWidth={30}
             trailColor="#A30000"
