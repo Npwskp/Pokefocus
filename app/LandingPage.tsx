@@ -18,6 +18,8 @@ import { create } from "zustand";
 import { AlertDestructive } from "@/components/AlertDestrutive";
 import CollectedCard from "@/components/CollectedCard";
 import CollectedPokeModal from "@/components/CollectedPokeModal";
+import { Info } from "lucide-react";
+import Information from "@/components/Information";
 
 export type Status = "start" | "rest" | "timesup" | "";
 
@@ -98,7 +100,10 @@ const LandingPage = () => {
               className="object-contain"
             />
           </div>
-          <ModeToggle />
+          <div className="flex flex-row gap-2 h-full items-center">
+            <Information />
+            <ModeToggle />
+          </div>
         </div>
         <div className="dark:bg-white bg-black sm:w-[80%] w-[90%] h-[2px]"></div>
         <div
