@@ -9,7 +9,7 @@ import { cn } from "@/lib/utils";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Image from "next/image";
 import React, { use, useEffect, useState } from "react";
-import { useForm } from "react-hook-form";
+import { set, useForm } from "react-hook-form";
 import * as z from "zod";
 import { formSchema } from "@/utils/timeFormSchema";
 import ChoosePoke from "@/components/ChoosePoke";
@@ -75,8 +75,13 @@ const LandingPage = () => {
   const [pokemon, setPokemon] = useState("");
   const pokemonList = usePokeListStore((state) => state.pokeList);
   const [isAlert, setIsAlert] = useState("");
+  const [isOpen, setIsOpen] = useState(false);
 
-  useEffect(() => {}, [pokemonList, isAlert, status]);
+  useEffect(() => {
+    if (status === "timesup") {
+      setIsOpen(true);
+    }
+  }, [pokemonList, isAlert, status]);
 
   return (
     <>
@@ -105,8 +110,8 @@ const LandingPage = () => {
         </div>
         <div className="flex flex-col justify-around mx-auto items-center sm:w-full w-[80%] h-full">
           <CollectedPokeModal
-            open={status === "timesup"}
-            onClose={() => setStatus("")}
+            open={isOpen}
+            onClose={setIsOpen}
             pokemon={pokemon}
           />
           <TimerCount

@@ -5,7 +5,7 @@ import Image from "next/image";
 
 type CollectedPokeModalProps = {
   open: boolean;
-  onClose: () => void;
+  onClose: (isOpen: boolean) => void;
   pokemon: string;
 };
 
@@ -17,8 +17,8 @@ const CollectedPokeModal: React.FC<CollectedPokeModalProps> = ({
   const pokepic = useGetPokemonPic({ name: pokemon, pictype: "Gif" });
 
   return (
-    <Dialog open={isOpen} key={2}>
-      <DialogContent className="flex items-center flex-col justify-around">
+    <Dialog open={isOpen} onOpenChange={onClose}>
+      <DialogContent className="flex items-center flex-col justify-around w-[90dvw] sm:w-full rounded-md">
         <DialogTitle>
           <span className="text-blue-600">
             {pokemon.slice(0, 1).toUpperCase() + pokemon.slice(1)}
