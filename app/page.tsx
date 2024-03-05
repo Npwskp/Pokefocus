@@ -131,6 +131,9 @@ const Page = () => {
           options: {
             primaryColor: "#1f75ae",
           },
+          buttonClose: {
+            display: "none",
+          },
         }}
       />
       <LandingPage setRun={setRun} />

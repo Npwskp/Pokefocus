@@ -16,8 +16,8 @@ const PokeCollect = () => {
 
   return (
     <div className="w-full h-full grid place-items-center">
-      <div className="block" id="step3">
-        <div className="text-center font-semibold text-xl my-4">
+      <div className="block">
+        <div className="text-center font-semibold text-xl my-4" id="step3">
           Pokemon Collected Today
         </div>
         <div
