@@ -18,6 +18,7 @@ import PokeCard from "./PokeCard";
 import { useScreenSize } from "@/hook/useScreenSize";
 import { useGetPokemonPic } from "@/hook/useGetPokemonPic";
 import Image from "next/image";
+import { cn } from "@/lib/utils";
 
 type ChoosePokeProps = {
   name: string;
@@ -69,7 +70,11 @@ const ChoosePoke: React.FC<ChoosePokeProps> = ({ name, setName }) => {
                 </div>
               </Button>
             </DialogTrigger>
-            <div className="m-auto px-3">
+            <div
+              className={cn("m-auto px-3", {
+                hidden: name === "",
+              })}
+            >
               {name ? (
                 <div className="flex flex-row justify-center items-center relative gap-3">
                   <div className="text-wrap sm:text-base text-sm">{name}</div>
@@ -89,9 +94,7 @@ const ChoosePoke: React.FC<ChoosePokeProps> = ({ name, setName }) => {
                   />
                 </div>
               ) : (
-                <div className="text-center text-wrap">
-                  Choose Pokemon to collect
-                </div>
+                <span></span>
               )}
             </div>
           </div>

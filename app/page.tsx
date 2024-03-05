@@ -62,7 +62,7 @@ const steps = [
     target: "#step3",
     content: (
       <div className="flex flex-col gap-2">
-        <div className="">Step 3: Finsih a cycle to obtain Pokémon</div>
+        <div className="">Step 3: Finish a cycle to obtain Pokémon</div>
         <Image
           src={"/step3.gif"}
           alt="step3"
@@ -90,19 +90,25 @@ const Page = () => {
   const handleJoyrideCallback = (data: CallBackProps) => {
     const { action, index, origin, status, type } = data;
 
-    if (EVENTS.STEP_AFTER === type || type === EVENTS.TARGET_NOT_FOUND) {
+    if (EVENTS.STEP_AFTER === type) {
       // Update state to advance the tour
-      setStepIndex(index + (action === ACTIONS.PREV ? -1 : 1));
+      setStepIndex(stepIndex + (action === ACTIONS.PREV ? -1 : 1));
+      if (stepIndex === -1) {
+        setStepIndex(0);
+      }
     } else if (
       STATUS.FINISHED === status ||
       status === STATUS.SKIPPED ||
-      action === ACTIONS.CLOSE
+      action === ACTIONS.CLOSE ||
+      origin === ORIGIN.BUTTON_CLOSE ||
+      origin === ORIGIN.OVERLAY
     ) {
       // Need to set our running state to false, so we can restart if we click start again.
-      setStepIndex(0);
       setRun(false);
-      return;
+      setStepIndex(0);
+      console.log("Joyride finished", stepIndex);
     }
+    console.log(stepIndex);
   };
 
   useEffect(() => {
