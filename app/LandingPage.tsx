@@ -8,7 +8,7 @@ import { Form } from "@/components/ui/form";
 import { cn } from "@/lib/utils";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Image from "next/image";
-import React, { use, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { set, useForm } from "react-hook-form";
 import * as z from "zod";
 import { formSchema } from "@/utils/timeFormSchema";
@@ -16,10 +16,9 @@ import ChoosePoke from "@/components/ChoosePoke";
 import PokeCollect from "@/components/PokeCollect";
 import { create } from "zustand";
 import { AlertDestructive } from "@/components/AlertDestrutive";
-import CollectedCard from "@/components/CollectedCard";
 import CollectedPokeModal from "@/components/CollectedPokeModal";
-import { Info } from "lucide-react";
 import Information from "@/components/Information";
+import Joyride from "react-joyride";
 
 export type Status = "start" | "rest" | "timesup" | "";
 
@@ -37,7 +36,11 @@ export const usePokeListStore = create<PokeListStore>()((set) => ({
     })),
 }));
 
-const LandingPage = () => {
+type LandingPageProps = {
+  setRun: (run: boolean) => void;
+};
+
+const LandingPage: React.FC<LandingPageProps> = ({ setRun }) => {
   const form = useForm({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -101,7 +104,7 @@ const LandingPage = () => {
             />
           </div>
           <div className="flex flex-row gap-2 h-full items-center">
-            <Information />
+            <Information setRun={setRun} />
             <ModeToggle />
           </div>
         </div>
@@ -110,6 +113,7 @@ const LandingPage = () => {
           className={cn("md:mt-6 mt-4", {
             hidden: status === "start" || status === "rest",
           })}
+          id="step1"
         >
           <ChoosePoke name={pokemon} setName={setPokemon} />
         </div>
@@ -128,51 +132,53 @@ const LandingPage = () => {
             isPaused={pause}
             name={pokemon}
           />
-          <Form {...form}>
-            <form
-              onSubmit={form.handleSubmit(onSubmit)}
-              className={cn("space-y-8", {
-                hidden: status === "start" || status === "rest",
-              })}
-            >
-              <div className="flex flex-col gap-2 items-center justify-center">
-                <div>Focus Time</div>
-                <div className="flex flex-row w-full gap-2">
-                  {["dhour", "dminute", "dsecond"].map((name) => (
-                    <TimeFormField
-                      key={name}
-                      form={form}
-                      register={register}
-                      name={name}
-                    />
-                  ))}
+          <span id="step2">
+            <Form {...form}>
+              <form
+                onSubmit={form.handleSubmit(onSubmit)}
+                className={cn("space-y-8", {
+                  hidden: status === "start" || status === "rest",
+                })}
+              >
+                <div className="flex flex-col gap-2 items-center justify-center">
+                  <div>Focus Time</div>
+                  <div className="flex flex-row w-full gap-2">
+                    {["dhour", "dminute", "dsecond"].map((name) => (
+                      <TimeFormField
+                        key={name}
+                        form={form}
+                        register={register}
+                        name={name}
+                      />
+                    ))}
+                  </div>
                 </div>
-              </div>
-              <div className="flex flex-col gap-2 items-center justify-center">
-                <div>Rest time</div>
-                <div className="flex flex-row w-full gap-2">
-                  {["rhour", "rminute", "rsecond"].map((name) => (
-                    <TimeFormField
-                      key={name}
-                      form={form}
-                      register={register}
-                      name={name}
-                    />
-                  ))}
+                <div className="flex flex-col gap-2 items-center justify-center">
+                  <div>Rest time</div>
+                  <div className="flex flex-row w-full gap-2">
+                    {["rhour", "rminute", "rsecond"].map((name) => (
+                      <TimeFormField
+                        key={name}
+                        form={form}
+                        register={register}
+                        name={name}
+                      />
+                    ))}
+                  </div>
                 </div>
-              </div>
 
-              <div className="flex w-full justify-center">
-                <Button
-                  type="submit"
-                  className="text-2xl bg-primary"
-                  size={"lg"}
-                >
-                  START
-                </Button>
-              </div>
-            </form>
-          </Form>
+                <div className="flex w-full justify-center">
+                  <Button
+                    type="submit"
+                    className="text-2xl bg-primary"
+                    size={"lg"}
+                  >
+                    START
+                  </Button>
+                </div>
+              </form>
+            </Form>
+          </span>
           <div
             className={cn(
               "flex flow-row sm:justify-evenly justify-between items-center w-full",

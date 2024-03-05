@@ -10,7 +10,11 @@ import {
 import { Button } from "./ui/button";
 import Image from "next/image";
 
-const Information = () => {
+type InformationProps = {
+  setRun: (run: boolean) => void;
+};
+
+const Information: React.FC<InformationProps> = ({ setRun }) => {
   return (
     <Dialog>
       <DialogTrigger asChild>
@@ -48,7 +52,12 @@ const Information = () => {
             className="rounded-lg"
           />
           <DialogClose asChild>
-            <Button variant="default" onClick={() => {}}>
+            <Button
+              variant="default"
+              onClick={() => {
+                setRun(true);
+              }}
+            >
               Take a tour
             </Button>
           </DialogClose>
