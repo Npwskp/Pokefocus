@@ -118,7 +118,7 @@ const Page = () => {
   if (!isLoaded) return null;
 
   return (
-    <>
+    <div className="relative w-full h-full">
       <Joyride
         steps={steps}
         stepIndex={stepIndex}
@@ -137,10 +137,17 @@ const Page = () => {
         }}
       />
       <LandingPage setRun={setRun} />
+      <Image
+        src={"/main-bg.jpg"}
+        alt="bg"
+        width={1920}
+        height={1080}
+        className="fixed top-0 left-0 -z-50 opacity-20 blur-[2px] object-cover w-full h-full"
+      />
       <footer className="text-center text-gray-500 text-xs mt-5 mb-5">
         <p>© 2024 Pokemon Timer</p>
       </footer>
-    </>
+    </div>
   );
 };
 
