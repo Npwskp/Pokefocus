@@ -86,6 +86,12 @@ const LandingPage: React.FC<LandingPageProps> = ({ setRun }) => {
     if (status === "timesup") {
       setIsOpen(true);
     }
+    if (isAlert !== "") {
+      const timer = setTimeout(() => {
+        setIsAlert("");
+      }, 5000);
+      return () => clearTimeout(timer);
+    }
   }, [pokemonList, isAlert, status]);
 
   return (
