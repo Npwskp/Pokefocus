@@ -1,6 +1,6 @@
 "use client";
 
-import { getRandomInt } from "@/app/page";
+import { getRandomInt } from "@/utils/func";
 import { useGetPokemonPic } from "@/hook/useGetPokemonPic";
 import Image from "next/image";
 import React, { use, useEffect, useState } from "react";
