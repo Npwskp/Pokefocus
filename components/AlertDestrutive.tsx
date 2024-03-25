@@ -13,7 +13,7 @@ export function AlertDestructive({ message, setAlert }: alertProps) {
   return (
     <Alert
       variant="destructive"
-      className="-z-50 w-72 h-18 right-0 bottom-0 mb-4 mx-4 fixed bg-primary"
+      className="z-100 w-72 h-18 right-0 bottom-0 mb-4 mx-4 fixed bg-primary"
     >
       <div className="relative w-full h-full">
         <RxCross2

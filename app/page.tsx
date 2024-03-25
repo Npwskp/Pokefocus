@@ -1,7 +1,7 @@
 "use client";
 
 import React, { createContext, use, useEffect, useState } from "react";
-import LandingPage from "./LandingPage";
+import LandingPage, { usePokeListStore } from "./LandingPage";
 import Joyride, {
   ACTIONS,
   CallBackProps,
@@ -12,6 +12,7 @@ import Joyride, {
 } from "react-joyride";
 import Image from "next/image";
 import { set } from "react-hook-form";
+import Movingbg from "@/components/Movingbg";
 
 const steps = [
   {
@@ -82,10 +83,17 @@ const steps = [
   },
 ];
 
+export function getRandomInt(min: number, max: number): number {
+  min = Math.ceil(min);
+  max = Math.floor(max);
+  return Math.floor(Math.random() * (max - min)) + min;
+}
+
 const Page = () => {
   const [isLoaded, setIsLoaded] = useState(false);
   const [run, setRun] = useState(false);
   const [stepIndex, setStepIndex] = useState(0);
+  const pokelist = usePokeListStore((state) => state.pokeList);
 
   const handleJoyrideCallback = (data: CallBackProps) => {
     const { action, index, origin, status, type } = data;
@@ -136,6 +144,14 @@ const Page = () => {
           },
         }}
       />
+      {pokelist.map((poke, index) => (
+        <Movingbg
+          key={poke + index}
+          zIndex={getRandomInt(1, 100)}
+          name={poke}
+          idx={index}
+        />
+      ))}
       <LandingPage setRun={setRun} />
       <Image
         src={"/main-bg.jpg"}

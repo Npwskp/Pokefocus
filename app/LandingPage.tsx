@@ -8,7 +8,7 @@ import { Form } from "@/components/ui/form";
 import { cn } from "@/lib/utils";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Image from "next/image";
-import React, { useEffect, useState } from "react";
+import React, { use, useEffect, useState } from "react";
 import { set, useForm } from "react-hook-form";
 import * as z from "zod";
 import { formSchema } from "@/utils/timeFormSchema";
@@ -81,6 +81,11 @@ const LandingPage: React.FC<LandingPageProps> = ({ setRun }) => {
   const pokemonList = usePokeListStore((state) => state.pokeList);
   const [isAlert, setIsAlert] = useState("");
   const [isOpen, setIsOpen] = useState(false);
+  const [isLoaded, setIsLoaded] = useState(false);
+
+  useEffect(() => {
+    setIsLoaded(true);
+  }, []);
 
   useEffect(() => {
     if (status === "timesup") {
@@ -93,6 +98,8 @@ const LandingPage: React.FC<LandingPageProps> = ({ setRun }) => {
       return () => clearTimeout(timer);
     }
   }, [pokemonList, isAlert, status]);
+
+  if (!isLoaded) return null;
 
   return (
     <>
