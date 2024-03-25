@@ -4,6 +4,7 @@ import { getRandomInt } from "@/app/page";
 import { useGetPokemonPic } from "@/hook/useGetPokemonPic";
 import Image from "next/image";
 import React, { use, useEffect, useState } from "react";
+import { set } from "react-hook-form";
 type MovingbgProps = {
   zIndex: number;
   name: string;
@@ -11,13 +12,17 @@ type MovingbgProps = {
 };
 
 const Movingbg: React.FC<MovingbgProps> = ({ zIndex, name, idx }) => {
-  const [Xposition, setXposition] = useState(getRandomInt(0, 90));
+  const [Xposition, setXposition] = useState(0);
   const [facing, setFacing] = useState(1);
   const img = useGetPokemonPic({ name, pictype: "Gif" });
   const [isLoaded, setIsLoaded] = useState(false);
 
   useEffect(() => {
-    setIsLoaded(true);
+    const time = setTimeout(() => {
+      setIsLoaded(true);
+    }, 500);
+    setXposition(getRandomInt(0, 90));
+    return () => clearTimeout(time);
   }, []);
 
   useEffect(() => {
@@ -30,6 +35,7 @@ const Movingbg: React.FC<MovingbgProps> = ({ zIndex, name, idx }) => {
     const time = setTimeout(() => {
       setXposition(Xposition + facing * 0.5);
     }, 500);
+    return () => clearTimeout(time);
   }, [Xposition, facing]);
 
   if (!isLoaded) return null;

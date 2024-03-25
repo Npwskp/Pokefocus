@@ -144,7 +144,7 @@ const Page = () => {
           },
         }}
       />
-      {pokelist.map((poke, index) => (
+      {[...pokelist, "pikachu"].map((poke, index) => (
         <Movingbg
           key={poke + index}
           zIndex={getRandomInt(1, 100)}
