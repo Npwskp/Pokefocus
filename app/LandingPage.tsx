@@ -102,7 +102,7 @@ const LandingPage: React.FC<LandingPageProps> = ({ setRun }) => {
   if (!isLoaded) return null;
 
   return (
-    <>
+    <span className="-z-50">
       {isAlert && <AlertDestructive message={isAlert} setAlert={setIsAlert} />}
       <div className="w-full h-full flex flex-col justify-around items-center overflow-auto">
         <div className="flex flow-row justify-between sm:w-[80%] w-[90%] sm:p-5 p-3">
@@ -220,8 +220,8 @@ const LandingPage: React.FC<LandingPageProps> = ({ setRun }) => {
           </div>
         </div>
       </div>
-      <PokeCollect />
-    </>
+      <PokeCollect stage={status} />
+    </span>
   );
 };
 

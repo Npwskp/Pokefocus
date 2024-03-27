@@ -13,6 +13,7 @@ type MovingbgProps = {
 
 const Movingbg: React.FC<MovingbgProps> = ({ zIndex, name, idx }) => {
   const [Xposition, setXposition] = useState(0);
+  const [speed, setSpeed] = useState(1);
   const [facing, setFacing] = useState(1);
   const img = useGetPokemonPic({ name, pictype: "Gif" });
   const [isLoaded, setIsLoaded] = useState(false);
@@ -22,6 +23,7 @@ const Movingbg: React.FC<MovingbgProps> = ({ zIndex, name, idx }) => {
       setIsLoaded(true);
     }, 500);
     setXposition(getRandomInt(0, 90));
+    setSpeed(getRandomInt(1, 4));
     return () => clearTimeout(time);
   }, []);
 
@@ -33,10 +35,10 @@ const Movingbg: React.FC<MovingbgProps> = ({ zIndex, name, idx }) => {
     }
 
     const time = setTimeout(() => {
-      setXposition(Xposition + facing * 0.5);
+      setXposition(Xposition + facing * 0.5 * speed);
     }, 500);
     return () => clearTimeout(time);
-  }, [Xposition, facing]);
+  }, [Xposition, facing, speed]);
 
   if (!isLoaded) return null;
 
@@ -46,7 +48,7 @@ const Movingbg: React.FC<MovingbgProps> = ({ zIndex, name, idx }) => {
       alt="moveing-poke"
       width={80}
       height={80}
-      className={`fixed bottom-0 -z-${zIndex}`}
+      className={`fixed bottom-0 -z-[60]`}
       style={{
         right: `${Xposition}%`,
         transform: `rotateY(${facing == 1 ? 0 : 180}deg)`,

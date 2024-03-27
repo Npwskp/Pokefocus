@@ -6,16 +6,21 @@ import CollectedCard from "./CollectedCard";
 import { useAutoAnimate } from "@formkit/auto-animate/react";
 import { cn } from "@/lib/utils";
 
-const PokeCollect = () => {
-  const pokemonList = usePokeListStore((state) => state.pokeList);
-  // const [parent, setParent] = useAutoAnimate();
+type PokeCollectProps = {
+  stage: string;
+};
 
-  useEffect(() => {
-    console.log(pokemonList);
-  }, [pokemonList]);
+const PokeCollect: React.FC<PokeCollectProps> = ({ stage }) => {
+  const pokemonList = usePokeListStore((state) => state.pokeList);
+
+  useEffect(() => {}, [pokemonList]);
 
   return (
-    <div className="w-full h-full grid place-items-center">
+    <div
+      className={cn("w-full h-full grid place-items-center", {
+        hidden: stage == "start" || stage == "rest",
+      })}
+    >
       <div className="block">
         <div className="text-center font-semibold text-xl my-4" id="step3">
           Pokemon Collected Today
