@@ -104,7 +104,7 @@ const LandingPage: React.FC<LandingPageProps> = ({ setRun }) => {
   return (
     <>
       {isAlert && <AlertDestructive message={isAlert} setAlert={setIsAlert} />}
-      <div className="w-full h-[100svh] flex flex-col justify-around items-center overflow-auto">
+      <div className="w-full h-full flex flex-col justify-around items-center overflow-auto">
         <div className="flex flow-row justify-between sm:w-[80%] w-[90%] sm:p-5 p-3">
           <div className="flex flex-row gap-2">
             <div className="items-center flex text-2xl">PokeFocus</div>
@@ -130,7 +130,7 @@ const LandingPage: React.FC<LandingPageProps> = ({ setRun }) => {
         >
           <ChoosePoke name={pokemon} setName={setPokemon} />
         </div>
-        <div className="flex flex-col justify-around mx-auto items-center sm:w-full w-[80%] h-full">
+        <div className="flex flex-col justify-around mx-auto items-center sm:w-full w-[80%] h-full gap-5 my-10">
           <CollectedPokeModal
             open={isOpen}
             onClose={setIsOpen}

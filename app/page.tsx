@@ -14,6 +14,8 @@ import Image from "next/image";
 import { set } from "react-hook-form";
 import Movingbg from "@/components/Movingbg";
 import { getRandomInt } from "@/utils/func";
+import { Button } from "@/components/ui/button";
+import PokeIcon from "@/components/svgpic/icon";
 
 const steps = [
   {
@@ -88,6 +90,7 @@ const Page = () => {
   const [isLoaded, setIsLoaded] = useState(false);
   const [run, setRun] = useState(false);
   const [stepIndex, setStepIndex] = useState(0);
+  const [showMoving, setShowMoving] = useState(false);
   const pokelist = usePokeListStore((state) => state.pokeList);
 
   const handleJoyrideCallback = (data: CallBackProps) => {
@@ -139,14 +142,16 @@ const Page = () => {
           },
         }}
       />
-      {[...pokelist, "pikachu"].map((poke, index) => (
-        <Movingbg
-          key={poke + index}
-          zIndex={getRandomInt(1, 100)}
-          name={poke}
-          idx={index}
-        />
-      ))}
+      <div className={showMoving == true ? "" : "hidden"}>
+        {[...pokelist, "pikachu"].map((poke, index) => (
+          <Movingbg
+            key={poke + index}
+            zIndex={getRandomInt(1, 100)}
+            name={poke}
+            idx={index}
+          />
+        ))}
+      </div>
       <LandingPage setRun={setRun} />
       <Image
         src={"/main-bg.jpg"}
@@ -155,7 +160,18 @@ const Page = () => {
         height={1080}
         className="fixed top-0 left-0 -z-50 opacity-20 blur-[2px] object-cover w-full h-full"
       />
-      <footer className="text-center text-gray-500 text-xs mt-5 mb-5">
+      <div className="w-full grid place-items-center">
+        <Button
+          onClick={() => setShowMoving(!showMoving)}
+          className="h-12 relative"
+        >
+          <div className="flex flex-row gap-2 justify-center items-center z-50">
+            <PokeIcon isOpen={showMoving} />
+            <span className="ml-9">Display Moving Pokemon</span>
+          </div>
+        </Button>
+      </div>
+      <footer className="text-center text-gray-500 text-xs mt-16 mb-5">
         <p>© 2024 Pokemon Timer</p>
       </footer>
     </div>
