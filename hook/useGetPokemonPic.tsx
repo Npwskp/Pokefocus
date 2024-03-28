@@ -27,6 +27,7 @@ export const useGetPokemonPic: React.FC<PokemonName> = ({ name, pictype }) => {
             res?.versions["generation-v"]["black-white"].animated
               .front_default ||
               res?.other.showdown.front_default ||
+              res?.other["official-artwork"].front_default ||
               ""
           );
         } else {
