@@ -143,7 +143,7 @@ const Page = () => {
         }}
       />
       <div className={showMoving == true ? "" : "hidden"}>
-        {[...pokelist, "pikachu"].map((poke, index) => (
+        {[...pokelist].map((poke, index) => (
           <Movingbg
             key={poke}
             zIndex={getRandomInt(50, 100)}
