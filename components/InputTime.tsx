@@ -1,4 +1,4 @@
-import React from "react";
+import React, { use, useEffect, useRef } from "react";
 import { Input } from "./ui/input";
 import { UseFormRegister } from "react-hook-form";
 
@@ -18,6 +18,7 @@ const InputTime = ({ register, name }: InputTimeProps) => {
         {...register(name, { valueAsNumber: true })}
         className="pr-6 bg-secondary"
         autoComplete="off"
+        onClick={(e) => e.currentTarget.select()}
       />
       <div className="absolute right-2">{name.slice(1, 2)}</div>
     </div>
